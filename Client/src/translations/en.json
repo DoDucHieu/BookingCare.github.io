@@ -1,0 +1,63 @@
+{
+    "homeHeader":{
+        "specialty":"Specialty",
+        "search-doctor":"Find doctor by specialty",
+        "health-facility":"Health facility",
+        "select-room":"Select hospital clinic",
+        "doctor":"Doctor",
+        "select-doctor":"Select good doctor",
+        "checkup-package":"Checkup package",
+        "general-health-check":"General health check",
+        "support":"Support",
+        "medical-background":"MEDICAL BACKGROUND",
+        "comprehensive-health-care":"COMPREHENSIVE HEALTH CARE",
+        "examination-specialty-top":"Specialty",
+        "examination-specialty-bot":"examination",
+        "remote-examination-top":"Remote",
+        "remote-examination-bot":"examination",
+        "general-examination-top":"General",
+        "general-examination-bot":"examination",
+        "medical-test-top":"Medical",
+        "medical-test-bot":"test",
+        "mental-health-top":"Mental",
+        "mental-health-bot":"health",
+        "dental-examination-top":"Dental",
+        "dental-examination-bot":"examination"
+
+    },
+    "menu": {
+        "admin": {
+            "manage": "Manage",
+                "manage-admin": "Manage admin",
+                "manage-doctor": "Manage doctor",
+                "manage-user": "Manage user",
+                "manage-redux":"Manage with Redux",
+            "clinic":"Clinic",
+                "manage-clinic":"Add new clinic",
+            "specialty":"Specialy",
+                "manage-specialty":"Add new specialty",
+            "handbook":"Handbook",
+                "manage-handbook":"Manage handbook"
+            
+        },
+        "welcome":"Welcome, "
+    },
+    "manage-user":{
+        "add":"Add new user",
+        "email":"Email",
+        "password": "Password",
+        "first-name":"First name",
+        "last-name":"Last name",
+        "address":"Address",
+        "phone-number":"Phone number",
+        "gender":"Gender",
+        "position":"Position",
+        "role":"Role",
+        "image":"Avatar",
+        "upload-image":"Upload image",
+        "create-user":"Create user",
+        "save-change":"Save change"
+    }
+
+
+}

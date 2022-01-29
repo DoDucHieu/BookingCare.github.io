@@ -1,0 +1,218 @@
+.homeHeader {
+  .homeHeader_top {
+    padding: 10px 0px;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(252, 241, 241);
+    display: flex;
+    position: fixed;
+    top: 0px;
+    z-index: 1000;
+    .homeHeader-left {
+      width: 30%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        font-size: 24px;
+        margin-right: 16px;
+        color: gray;
+      }
+      .logo-img {
+        width: 164px;
+        height: 36px;
+        background-image: url("../../../assets/images/bookingcare-2020.svg");
+      }
+    }
+    .homeHeader-middle {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      .homeHeader-middle-menu {
+        width: 100%;
+        display: flex;
+        .homeHeader-middle-item {
+          padding: 0px 12px;
+          .middle-item-text-bold {
+            font-size: 13px;
+            cursor: pointer;
+          }
+          .middle-item-text {
+            font-size: 11px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .homeHeader-right {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      padding-left: 32px;
+
+      i {
+        color: #45c3d2;
+        font-size: 16px;
+        margin-right: 4px;
+      }
+      .homeHeader_support {
+        cursor: pointer;
+        font-weight: 600;
+        color: gray;
+        margin-bottom: 0;
+      }
+      .homeHeader_language {
+        display: flex;
+        margin-left: 16px;
+        span {
+          cursor: pointer;
+          font-weight: 600;
+          color: gray;
+          margin: 4px;
+        }
+        span:hover {
+          color: rgb(30, 255, 0);
+        }
+        .active {
+          color: rgb(255, 187, 0);
+        }
+      }
+    }
+  }
+  .homeHeader_banner {
+    margin-top: 80px;
+
+    width: 100%;
+    height: 600px;
+    background-image: url(../../../assets/images/BG.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .homeHeader_banner-top {
+      background-image: linear-gradient(
+        rgba(0, 0, 0, 0.25),
+        rgba(255, 255, 255, 0.1)
+      );
+      width: 100%;
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      .text-top {
+        display: flex;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: 400;
+        color: white;
+        margin-top: 60px;
+        text-shadow: 1px 1px 1px #333;
+      }
+      .text-bottom {
+        display: flex;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 600;
+        color: white;
+        margin-top: 12px;
+        text-shadow: 1px 1px 1px #333;
+      }
+      .banner_search {
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+        position: relative;
+        input {
+          width: 460px;
+          height: 50px;
+          border-radius: 50px;
+          background-color: #f7d800;
+          border: none;
+          outline: none;
+          padding-left: 60px;
+        }
+        i {
+          position: absolute;
+          top: 20px;
+          left: 560px;
+        }
+      }
+      .googlePlay_appStore {
+        margin-top: 86px;
+        display: flex;
+        justify-content: center;
+        .googlePlay {
+          // width: 108px;
+          height: 32px;
+          aspect-ratio: auto 108 / 32;
+          background-size: cover;
+          background-image: url(../../../assets/images/google-play-badge.svg);
+          margin: 8px;
+        }
+        .appStore {
+          // width: 108px;
+          height: 32px;
+          aspect-ratio: auto 108 / 36;
+          background-size: cover;
+          background-image: url(../../../assets/images/app-store-badge-black.svg);
+          margin: 8px;
+        }
+      }
+    }
+    .homeHeader_banner-bottom {
+      width: 100%;
+      height: 30%;
+      display: flex;
+      justify-content: center;
+      background-image: linear-gradient(
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 1)
+      );
+      .banner-bottom-item {
+        width: 150px;
+        height: 112px;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        .img {
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          border-radius: 50%;
+          background-size: 32px;
+          box-shadow: 0px 1px 2px rgb(0, 0, 0 / 50%);
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-bottom: 4px;
+        }
+        .img1 {
+          background-image: url(../../../assets/images/kham_chuyenkhoa.png);
+        }
+        .img2 {
+          background-image: url(../../../assets/images/kham_tuxa.png);
+        }
+        .img3 {
+          background-image: url(../../../assets/images/kham_tongquat.png);
+        }
+        .img4 {
+          background-image: url(../../../assets/images/dichvu_xetnghiem.png);
+        }
+        .img5 {
+          background-image: url(../../../assets/images/suckhoe_tinhthan.png);
+        }
+        .img6 {
+          background-image: url(../../../assets/images/kham_nhakhoa.png);
+        }
+        p {
+          margin: 0;
+        }
+      }
+      .banner-bottom-item:hover {
+        color: #45c3d2;
+      }
+    }
+  }
+}

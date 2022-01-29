@@ -1,0 +1,121 @@
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
+}
+
+.btn-edit {
+    margin: 0px 8px;
+    border: none;
+    color: rgb(0, 110, 255);
+    background-color: transparent;
+}
+
+.btn-edit:hover {
+    color: pink;
+    background-color: transparent;
+}
+
+.btn-delete {
+    margin: 0px 8px;
+    border: none;
+    color: red;
+    background-color: transparent;
+}
+
+.btn-delete:hover {
+    color: rgb(255, 217, 0);
+    background-color: transparent;
+}
+
+.userModal-scss {
+    .container {
+        .container-row {
+            display: flex;
+            gap: 16px;
+            margin: 8px 0px;
+            .container-input {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                input {
+                    height: 28px;
+                    border-radius: 3px;
+                    border: 1px solid gray;
+                    outline: none;
+                    padding: 0 10px;
+                }
+            }
+            .container-input-address {
+                width: 100%;
+                input {
+                    width: 100%;
+                    height: 28px;
+                    border-radius: 3px;
+                    border: 1px solid gray;
+                    outline: none;
+                    padding: 0 10px;
+                }
+            }
+            .container-input-phoneNumber {
+                width: 50%;
+                input {
+                    width: 100%;
+                    height: 28px;
+                    border-radius: 3px;
+                    border: 1px solid gray;
+                    outline: none;
+                    padding: 0 10px;
+                }
+            }
+            .container-input-select {
+                width: 50%;
+                display: flex;
+                gap: 16px;
+                .container-input-select-genderAndRole {
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    select {
+                        width: 100%;
+                        height: 28px;
+                        border-radius: 3px;
+                        border: 1px solid gray;
+                        outline: none;
+                        padding: 0 10px;
+                    }
+                }
+            }
+        }
+    }
+    .modal-header {
+        button {
+            border: none;
+            background-color: transparent;
+            color: white;
+            font-size: 24px;
+        }
+    }
+}

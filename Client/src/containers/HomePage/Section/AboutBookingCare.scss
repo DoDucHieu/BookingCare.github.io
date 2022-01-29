@@ -1,0 +1,119 @@
+.aboutBookingCare {
+  width: 100%;
+  height: 800px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 200px;
+  .aboutBookingCare-top {
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    display: flex;
+    .aboutBookingCare-top-left {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 400px;
+      .aboutBookingCare-top-left-header {
+        height: 68px;
+        line-height: 68px;
+        font-size: 24px;
+      }
+    }
+    .aboutBookingCare-top-right {
+      width: 50%;
+      padding: 68px 68px;
+      .healthOfLife {
+        width: 142px;
+        height: 30px;
+        margin: 8px 4px;
+      }
+      .vtv1 {
+        width: 86px;
+        height: 30px;
+        margin: 8px 4px;
+      }
+      .ictnews {
+        width: 107px;
+        height: 30px;
+        margin: 8px 4px;
+      }
+      .vnexpress {
+        width: 163px;
+        height: 30px;
+        margin: 8px 4px;
+      }
+      .vtcnews {
+        width: 131px;
+        height: 30px;
+        background-color: #a3171e;
+        margin: 8px 4px;
+      }
+      .ministryOfHealth {
+        width: 107px;
+        height: 40px;
+        margin: 8px 4px;
+      }
+      .infonet {
+        width: 109px;
+        height: 30px;
+        margin: 8px 4px;
+      }
+      .vtcgo {
+        width: 76px;
+        height: 25px;
+        background-color: #16325c;
+        margin: 8px 4px;
+      }
+    }
+  }
+  .aboutBookingCare-bottom {
+    width: 100%;
+    height: 330px;
+    background-color: rgb(255, 255, 255);
+    background-image: url(../../../assets/images/bookingcare-app-2020.png);
+    background-repeat: no-repeat;
+    background-size: 200px auto;
+    background-position-x: 360px;
+    background-position-y: 36px;
+
+    padding-left: 600px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    .aboutBookingCare-bottom-dowloadAppText {
+      font-size: 20px;
+    }
+    p {
+      margin-bottom: 0;
+      margin-top: 8px;
+      i {
+        color: rgb(50, 235, 241);
+      }
+      span {
+        margin-left: 4px;
+      }
+    }
+    .aboutBookingCare-bottom-googlePlay_appStore {
+      display: flex;
+      margin-top: 12px;
+      margin-bottom: 12px;
+      .aboutBookingCare-bottom-googlePlay {
+        height: 32px;
+        aspect-ratio: auto 108 / 32;
+        background-size: cover;
+        background-image: url(../../../assets/images/google-play-badge.svg);
+        margin: 4px;
+      }
+      .aboutBookingCare-bottom-appStore {
+        height: 32px;
+        aspect-ratio: auto 108 / 32;
+        background-size: cover;
+        background-image: url(../../../assets/images/app-store-badge-black.svg);
+        margin: 4px;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: rgb(0, 217, 255);
+    }
+  }
+}

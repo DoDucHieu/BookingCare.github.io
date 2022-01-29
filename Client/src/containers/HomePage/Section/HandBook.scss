@@ -1,0 +1,33 @@
+.handBook {
+  background-color: rgb(231, 241, 255);
+  .handBook-header-button {
+    width: 132px !important;
+    color: rgb(107, 107, 107) !important;
+  }
+  .popularSpecialty-body {
+    .container {
+      .handleBook-item-border {
+        padding: 0px 6px;
+        .handBook-item {
+          display: flex !important;
+          .handBook-body-img {
+            width: 278px;
+            height: 156px;
+            object-fit: cover;
+            cursor: pointer;
+          }
+          .handBook-body-text {
+            width: 278px;
+            margin-left: 12px;
+            margin-bottom: 0px;
+          }
+        }
+        .handBook-body-img:hover + .handBook-body-text > span,
+        span:hover {
+          cursor: pointer;
+          color: #45c3d2;
+        }
+      }
+    }
+  }
+}

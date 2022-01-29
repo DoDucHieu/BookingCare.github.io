@@ -1,0 +1,65 @@
+{
+
+    "homeHeader":{
+        "specialty":"Chuyên khoa",
+        "search-doctor":"Tìm bác sĩ theo chuyên khoa",
+        "health-facility":"Cơ sở y tế",
+        "select-room":"Chọn bệnh viện phòng khám",
+        "doctor":"Bác sĩ",
+        "select-doctor":"Chọn bác sĩ giỏi",
+        "checkup-package":"Gói khám",
+        "general-health-check":"Gói khám tổng quát",
+        "support":"Hỗ trợ",
+        "medical-background":"NỀN TẢNG Y TẾ",
+        "comprehensive-health-care":"CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "examination-specialty-top":"Khám",
+        "examination-specialty-bot":"chuyên khoa",
+        "remote-examination-top":"khám",
+        "remote-examination-bot":"từ xa",
+        "general-examination-top":"Khám",
+        "general-examination-bot":"tổng quát",
+        "medical-test-top":"Xét nghiệm",
+        "medical-test-bot":"y học",
+        "mental-health-top":"Sức khỏe",
+        "mental-health-bot":"tinh thần",
+        "dental-examination-top":"Khám",
+        "dental-examination-bot":"nha khoa"
+    },
+
+    "menu": {
+        "admin": {
+            "manage": "Quản lý",
+                "manage-admin": "Quản lý Admin",
+                "manage-doctor": "Quản lý bác sĩ",
+                "manage-user": "Quản lý người dùng",
+                "manage-redux":"Quản lý với Redux",
+            "clinic":"Phòng khám",
+                "manage-clinic":"Thêm phòng khám",
+            "specialty":"Chuyên khoa",
+                "manage-specialty":"Thêm chuyên khoa",
+            "handbook":"Cẩm nang",
+                "manage-handbook":"Quản lí cẩm nang"
+        },
+        "welcome":"Xin chào, ",
+        "clinic":"Phòng khám"
+
+    }
+    ,
+    "manage-user":{
+        "add":"Thêm mới",
+        "email":"Email",
+        "password": "Password",
+        "first-name":"Tên",
+        "last-name":"Họ",
+        "address":"Địa chỉ",
+        "phone-number":"Số điện thoại",
+        "gender":"Giới tính",
+        "position":"Chức danh",
+        "role":"Vai trò",
+        "image":"Ảnh đại diện",
+        "upload-image":"Tải ảnh lên",
+        "create-user":"Tạo người dùng",
+        "save-change":"Lưu thay đổi"
+    }
+
+}

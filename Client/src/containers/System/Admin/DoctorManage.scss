@@ -1,0 +1,37 @@
+.manageDoctor {
+  padding: 0px 12px;
+  .manageDoctor_title {
+    margin: 8px;
+    text-align: center;
+    text-transform: upperCase;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(240, 120, 8);
+  }
+  .selectDoctor {
+    margin: 8px 0px;
+    .reactSelect {
+      width: 300px;
+    }
+  }
+  .description {
+    display: flex;
+    flex-direction: column;
+    textarea {
+      width: 50%;
+    }
+    margin-bottom: 8px;
+  }
+  .save_manageDoctor {
+    border: none;
+    outline: none;
+    width: 120px;
+    height: 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 90, 207);
+    margin-top: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+}
