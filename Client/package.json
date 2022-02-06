@@ -2,7 +2,8 @@
   "name": "react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DoDucHieu.github.io/BookingCare/",
+  "homepage": "http://localhost:3000/home",
+
   "dependencies": {
     "@formatjs/intl-pluralrules": "^3.5.6",
     "@formatjs/intl-relativetimeformat": "^7.3.6",

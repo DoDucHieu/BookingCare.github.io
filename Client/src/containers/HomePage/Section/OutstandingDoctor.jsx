@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import "./Specialty.scss";
 import "./OutstandingDoctor.scss";
 import { FormattedMessage } from "react-intl";
-import { LANGUAGES } from "../../../utils";
-// import { changeLanguageApp } from "../../../store/actions";
+import { LANGUAGES, path } from "../../../utils";
+import DetailDoctor from "../DetailDoctor/DetailDoctor";
+import { Redirect, Route, Switch,  BrowserRouter as Router } from "react-router-dom";
+import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -36,6 +38,7 @@ class OutstandingDoctor extends Component {
     super(props);
     this.state = {
       topDoctorArr: [],
+      redirect:false,
     };
   }
   changeLanguage = (language) => {
@@ -52,7 +55,11 @@ class OutstandingDoctor extends Component {
       });
     }
   }
+  handleGetDetailDoctor=(doctor)=>{
+    // console.log("check handleGetDetailDoctor: ",doctor);
+    this.props.history.push(`/detail-doctor-${doctor.id}`)
 
+  }
   render() {
     let settings = {
       dots: false,
@@ -67,47 +74,47 @@ class OutstandingDoctor extends Component {
     console.log(this.state.topDoctorArr);
     let arrTopDoctor = this.state.topDoctorArr;
     return (
-      <div className="specialty outstandingDoctor">
-        <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Tướng nổi bật</b>
-          <button className="popularSpecialty-header-button">TÌM KIẾM</button>
-        </div>
-        <div className="outstandingDoctor-body">
-          <div className="container">
-            <Slider {...settings}>
-              {arrTopDoctor &&
-                arrTopDoctor.length > 0 &&
-                arrTopDoctor.map((item, index) => {
-                  let imgBase64 = "";
-                  if (item.image) {
-                    imgBase64 = new Buffer(item.image, "base64").toString(
-                      "binary"
-                    );
-                  }
-                  return (
-                    <div className="outstandingDoctor-item-border">
-                      <div className=" outstandingDoctor-item">
-                        <img
-                          src={imgBase64}
-                          className="outstandingDoctor-body-img"
-                        ></img>
+        <div className="specialty outstandingDoctor">
+          <div className="popularSpecialty-header">
+            <b className="popularSpecialty-header-text">Tướng nổi bật</b>
+            <button className="popularSpecialty-header-button">TÌM KIẾM</button>
+          </div>
+          <div className="outstandingDoctor-body">
+            <div className="container">
+              <Slider {...settings}>
+                {arrTopDoctor &&
+                  arrTopDoctor.length > 0 &&
+                  arrTopDoctor.map((item, index) => {
+                    let imgBase64 = "";
+                    if (item.image) {
+                      imgBase64 = new Buffer(item.image, "base64").toString(
+                        "binary"
+                      );
+                    }
+                    return (
+                      <div className="outstandingDoctor-item-border" key={index} onClick={()=>this.handleGetDetailDoctor(item)}>
+                        <div className=" outstandingDoctor-item">
+                          <img
+                            src={imgBase64}
+                            className="outstandingDoctor-body-img"
+                          ></img>
 
-                        <span className="outstandingDoctor-body-text">
-                          {this.props.language === LANGUAGES.VI
-                            ? item.positionData.valueVi
-                            : item.positionData.valueEn}
-                        </span>
-                        <p className="outstandingDoctor-body-text-bot">
-                          {`${item.firstName} ${item.lastName}`}
-                        </p>
+                          <span className="outstandingDoctor-body-text">
+                            {this.props.language === LANGUAGES.VI
+                              ? item.positionData.valueVi
+                              : item.positionData.valueEn}
+                          </span>
+                          <p className="outstandingDoctor-body-text-bot">
+                            {`${item.firstName} ${item.lastName}`}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-            </Slider>
+                    );
+                  })}
+              </Slider>
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 }
@@ -129,4 +136,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor));

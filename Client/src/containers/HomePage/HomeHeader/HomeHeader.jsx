@@ -4,19 +4,26 @@ import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../../utils";
 import { changeLanguageApp } from "../../../store/actions";
+import { withRouter } from "react-router";
+
 class HomeHeader extends Component {
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+  handleOnclickLogo = () => {
+    this.props.history.push("/home");
+  };
   render() {
-    // console.log(LANGUAGES.EN);
-    console.log(this.props);
+    console.log("homeHeader:", this.props.isDisplayBanner);
     return (
       <div className="homeHeader">
         <div className="homeHeader_top">
           <div className="homeHeader-left">
             <i className="fas fa-bars"></i>
-            <div className="logo-img"></div>
+            <div
+              className="logo-img"
+              onClick={() => this.handleOnclickLogo()}
+            ></div>
           </div>
           <div className="homeHeader-middle">
             <div className="homeHeader-middle-menu">
@@ -84,80 +91,82 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="homeHeader_banner">
-          <div className="homeHeader_banner-top">
-            <div className="text-top">
-              <FormattedMessage id="homeHeader.medical-background" />
+        {!this.props.isNotDisplayBanner && (
+          <div className="homeHeader_banner">
+            <div className="homeHeader_banner-top">
+              <div className="text-top">
+                <FormattedMessage id="homeHeader.medical-background" />
+              </div>
+              <div className="text-bottom">
+                <FormattedMessage id="homeHeader.comprehensive-health-care" />
+              </div>
+              <div className="banner_search">
+                <input type="text" placeholder="Tìm gói khám" />
+                <i className="fas fa-search"></i>
+              </div>
+              <div className="googlePlay_appStore">
+                <div className="googlePlay"></div>
+                <div className="appStore"></div>
+              </div>
             </div>
-            <div className="text-bottom">
-              <FormattedMessage id="homeHeader.comprehensive-health-care" />
-            </div>
-            <div className="banner_search">
-              <input type="text" placeholder="Tìm gói khám" />
-              <i className="fas fa-search"></i>
-            </div>
-            <div className="googlePlay_appStore">
-              <div className="googlePlay"></div>
-              <div className="appStore"></div>
+            <div className="homeHeader_banner-bottom">
+              <div className="banner-bottom-item">
+                <div className="img img1"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.examination-specialty-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.examination-specialty-bot" />
+                </p>
+              </div>
+              <div className="banner-bottom-item">
+                <div className="img img2"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.remote-examination-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.remote-examination-bot" />
+                </p>
+              </div>
+              <div className="banner-bottom-item">
+                <div className="img img3"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.general-examination-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.general-examination-bot" />
+                </p>
+              </div>
+              <div className="banner-bottom-item">
+                <div className="img img4"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.medical-test-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.medical-test-bot" />
+                </p>
+              </div>
+              <div className="banner-bottom-item">
+                <div className="img img5"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.mental-health-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.mental-health-bot" />
+                </p>
+              </div>
+              <div className="banner-bottom-item">
+                <div className="img img6"></div>
+                <p>
+                  <FormattedMessage id="homeHeader.dental-examination-top" />
+                </p>
+                <p>
+                  <FormattedMessage id="homeHeader.dental-examination-bot" />
+                </p>
+              </div>
             </div>
           </div>
-          <div className="homeHeader_banner-bottom">
-            <div className="banner-bottom-item">
-              <div className="img img1"></div>
-              <p>
-                <FormattedMessage id="homeHeader.examination-specialty-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.examination-specialty-bot" />
-              </p>
-            </div>
-            <div className="banner-bottom-item">
-              <div className="img img2"></div>
-              <p>
-                <FormattedMessage id="homeHeader.remote-examination-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.remote-examination-bot" />
-              </p>
-            </div>
-            <div className="banner-bottom-item">
-              <div className="img img3"></div>
-              <p>
-                <FormattedMessage id="homeHeader.general-examination-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.general-examination-bot" />
-              </p>
-            </div>
-            <div className="banner-bottom-item">
-              <div className="img img4"></div>
-              <p>
-                <FormattedMessage id="homeHeader.medical-test-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.medical-test-bot" />
-              </p>
-            </div>
-            <div className="banner-bottom-item">
-              <div className="img img5"></div>
-              <p>
-                <FormattedMessage id="homeHeader.mental-health-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.mental-health-bot" />
-              </p>
-            </div>
-            <div className="banner-bottom-item">
-              <div className="img img6"></div>
-              <p>
-                <FormattedMessage id="homeHeader.dental-examination-top" />
-              </p>
-              <p>
-                <FormattedMessage id="homeHeader.dental-examination-bot" />
-              </p>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     );
   }
@@ -176,4 +185,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);

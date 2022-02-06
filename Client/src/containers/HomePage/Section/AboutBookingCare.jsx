@@ -30,9 +30,9 @@ class AboutBookingCare extends Component {
               height="100%"
               src="https://www.youtube.com/embed/yBbbJd1sKC0"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <div className="aboutBookingCare-top-right">
@@ -53,15 +53,15 @@ class AboutBookingCare extends Component {
             Tải ứng dụng BookingCare
           </b>
           <p>
-            <i class="fas fa-check"></i>
+            <i className="fas fa-check"></i>
             <span>Đặt khám nhanh hơn</span>
           </p>
           <p>
-            <i class="fas fa-check"></i>
+            <i className="fas fa-check"></i>
             <span>Nhận thông báo từ hệ thống</span>
           </p>
           <p>
-            <i class="fas fa-check"></i>
+            <i className="fas fa-check"></i>
             <span>Nhận hướng dẫn đi khám chi tiết</span>
           </p>
           <div className="aboutBookingCare-bottom-googlePlay_appStore">

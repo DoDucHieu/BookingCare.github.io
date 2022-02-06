@@ -9,6 +9,8 @@ import {
   getOutstandingDoctor,
   getAllDoctor,
   createDetailDoctor,
+  getDetailDoctor,
+  editDetailDoctor,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 
@@ -237,62 +239,113 @@ export const getOutstandingDoctorFailed = () => {
   };
 };
 
-export let getAllDoctorStart=()=>{
-  return async(dispatch, getState)=>{
-    try{
-      
+export let getAllDoctorStart = () => {
+  return async (dispatch, getState) => {
+    try {
       let result = await getAllDoctor();
-      if(result && result.errCode===0){
-        dispatch(getAllDoctorSuccess(result.data))
-      }
-      else{
+      if (result && result.errCode === 0) {
+        dispatch(getAllDoctorSuccess(result.data));
+      } else {
         dispatch(getAllDoctorFailed());
       }
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       dispatch(getAllDoctorFailed());
     }
-  }
-}
-export let getAllDoctorSuccess=(doctorData)=>{
-  return({
-    type:actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
-    data:doctorData,
-  })
-}
-export let getAllDoctorFailed=()=>{
-  return({
-    type:actionTypes.FETCH_ALL_DOCTOR_FAILED,
-  })
-}
+  };
+};
+export let getAllDoctorSuccess = (doctorData) => {
+  return {
+    type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+    data: doctorData,
+  };
+};
+export let getAllDoctorFailed = () => {
+  return {
+    type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+  };
+};
 
-export let createDetailDoctorStart=(data)=>{
-  return async(dispatch, getState)=>{
-    try{
+export let createDetailDoctorStart = (data) => {
+  return async (dispatch, getState) => {
+    try {
       let result = await createDetailDoctor(data);
-      if(result && result.errCode===0){
-        dispatch(createDetailDoctorSuccess())
-      }
-      else{
+      if (result && result.errCode === 0) {
+        dispatch(createDetailDoctorSuccess());
+      } else {
         dispatch(createDetailDoctorFailed());
       }
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       dispatch(createDetailDoctorFailed());
     }
-  }
-}
-export let createDetailDoctorSuccess=(data)=>{
+  };
+};
+export let createDetailDoctorSuccess = (data) => {
   toast.success("CREATE DETAIL DOCTOR SUCCESS!");
-  return({
-    type:actionTypes.CREATE_DETAIL_DOCTOR_SUCCESS,
-  })
-}
-export let createDetailDoctorFailed=()=>{
+  return {
+    type: actionTypes.CREATE_DETAIL_DOCTOR_SUCCESS,
+  };
+};
+export let createDetailDoctorFailed = () => {
   toast.failed("CREATE DETAIL DOCTOR FAILED!");
-  return({
-    type:actionTypes.CREATE_DETAIL_DOCTOR_FAILED,
-  })
-}
+  return {
+    type: actionTypes.CREATE_DETAIL_DOCTOR_FAILED,
+  };
+};
+
+export let getDetailDoctorStart = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getDetailDoctor(id);
+      if (result && result.errCode === 0) {
+        dispatch(getDetailDoctorSuccess(result.data));
+      } else {
+        dispatch(getDetailDoctorFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(getDetailDoctorFailed());
+    }
+  };
+};
+export let getDetailDoctorSuccess = (data) => {
+  console.log("admin action check: ", data);
+  return {
+    type: actionTypes.GET_DETAIL_DOCTOR_SUCCESS,
+    data: data,
+  };
+};
+export let getDetailDoctorFailed = () => {
+  return {
+    type: actionTypes.GET_DETAIL_DOCTOR_FAILED,
+  };
+};
+
+export let editDetailDoctorStart = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await editDetailDoctor(data);
+      if (result && result.errCode === 0) {
+        dispatch(editDetailDoctorSuccess());
+      } else {
+        dispatch(editDetailDoctorFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(editDetailDoctorFailed());
+    }
+  };
+};
+export let editDetailDoctorSuccess = (data) => {
+  toast.success("EDIT DETAIL DOCTOR SUCCESS!");
+  return {
+    type: actionTypes.EDIT_DETAIL_DOCTOR_SUCCESS,
+  };
+};
+export let editDetailDoctorFailed = () => {
+  toast.failed("EDIT DETAIL DOCTOR FAILED!");
+  return {
+    type: actionTypes.EDIT_DETAIL_DOCTOR_FAILED,
+  };
+};

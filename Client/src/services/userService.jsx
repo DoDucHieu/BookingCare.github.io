@@ -29,13 +29,21 @@ let getOutstandingDoctor = (limit) => {
   return axios.get(`/api/get-top-doctor?limit=${limit}`);
 };
 //get all doctor
-let getAllDoctor=()=>{
-  return axios.get('/api/get-all-doctor');
-}
+let getAllDoctor = () => {
+  return axios.get("/api/get-all-doctor");
+};
 // create detail doctor
-let createDetailDoctor=(data)=>{
-  return axios.post("/api/create-detail-doctor",data)
-}
+let createDetailDoctor = (data) => {
+  return axios.post("/api/create-detail-doctor", data);
+};
+
+let getDetailDoctor = (id) => {
+  return axios.get(`/api/get-detail-doctor?id=${id}`);
+};
+
+let editDetailDoctor = (data) => {
+  return axios.put("/api/edit-detail-doctor", data);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -45,5 +53,7 @@ export {
   getAllCode,
   getOutstandingDoctor,
   getAllDoctor,
-  createDetailDoctor
+  createDetailDoctor,
+  getDetailDoctor,
+  editDetailDoctor,
 };
