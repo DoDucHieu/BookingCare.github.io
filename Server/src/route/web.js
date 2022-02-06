@@ -23,20 +23,19 @@ let initWebRoutes = (app) => {
   router.put("/api/edit-user", userController.handleEditUser);
   router.delete("/api/delete-user", userController.handleDeleteUser);
 
-  // GET ALL CODE API
+  // DOCTOR
   router.get("/api/get-all-code", userController.handleGetAllCode);
-
-  // OUTSTANDING DOCTOR API
   router.get("/api/get-top-doctor", doctorController.handleGetTopDoctor);
-
-  // GET ALL DOCTOR
   router.get("/api/get-all-doctor", doctorController.handleGetAllDoctor);
-
-  //CREATE DOCTOR DETAIL
   router.post(
     "/api/create-detail-doctor",
     doctorController.handleCreateDetailDoctor
   );
+  router.put(
+    "/api/edit-detail-doctor",
+    doctorController.handleEditDetailDoctor
+  );
+  router.get("/api/get-detail-doctor", doctorController.handleGetDetailDoctor);
 
   return app.use("/", router);
 };
