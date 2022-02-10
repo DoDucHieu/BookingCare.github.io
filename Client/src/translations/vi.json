@@ -29,20 +29,24 @@
     "menu": {
         "admin": {
             "manage": "Quản lý",
-                "manage-admin": "Quản lý Admin",
-                "manage-doctor": "Quản lý bác sĩ",
-                "manage-user": "Quản lý người dùng",
-                "manage-redux":"Quản lý với Redux",
-            "clinic":"Phòng khám",
-                "manage-clinic":"Thêm phòng khám",
-            "specialty":"Chuyên khoa",
-                "manage-specialty":"Thêm chuyên khoa",
-            "handbook":"Cẩm nang",
-                "manage-handbook":"Quản lí cẩm nang"
-        },
-        "welcome":"Xin chào, ",
-        "clinic":"Phòng khám"
+            "manage-admin": "Quản lý Admin",
+            "manage-doctor": "Quản lý bác sĩ",
+            "manage-user": "Quản lý người dùng",
+            "manage-redux":"Quản lý với Redux",
 
+            "clinic":"Phòng khám",
+            "manage-clinic":"Thêm phòng khám",
+
+            "specialty":"Chuyên khoa",
+            "manage-specialty":"Thêm chuyên khoa",
+
+            "handbook":"Cẩm nang",
+            "manage-handbook":"Quản lí cẩm nang"
+        },
+        "doctor":{
+            "manage-schedule":"Quản lý lịch khám"
+        },
+        "welcome":"Xin chào, "
     }
     ,
     "manage-user":{
@@ -60,6 +64,12 @@
         "upload-image":"Tải ảnh lên",
         "create-user":"Tạo người dùng",
         "save-change":"Lưu thay đổi"
+    },
+    "manage-schedule":{
+        "title":"Quản lí lịch khám",
+        "doctor":"Bác sĩ",
+        "day":"Ngày",
+        "time":"Giờ"
     }
 
 }

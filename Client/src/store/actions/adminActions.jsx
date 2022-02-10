@@ -18,7 +18,6 @@ import { dispatch } from "../../redux";
 export const fetchGenderStart = () => {
   return async (dispatch, getState) => {
     try {
-      // dispatch({ type: actionTypes.FETCH_GENDER_START });
       let result = await getAllCode("GENDER");
       if (result && result.errCode === 0) {
         console.log("hello from adminAction");
@@ -93,6 +92,31 @@ export const fetchRoleFailed = () => ({
   type: actionTypes.FETCH_ROLE_FAILED,
 });
 
+//time
+export const fetchTimeStart = () => {
+  return async (dispatch, getstate) => {
+    try {
+      let result = await getAllCode("TIME");
+      if (result && result.errCode === 0) {
+        dispatch(fetchTimeSuccess(result.data));
+      } else {
+        dispatch(fetchTimeFailed());
+      }
+    } catch (e) {}
+  };
+};
+export const fetchTimeSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_TIME_SUCCESS,
+    dataTime: data,
+  };
+};
+export const fetchTimeFailed = () => {
+  return {
+    type: actionTypes.FETCH_TIME_FAILED,
+  };
+};
+
 // create new user (Khong cần adminReducer vì chả cần làm j liên quan tới state)
 export const createNewUserStart = (data) => {
   return async (dispatch, getState) => {
@@ -126,7 +150,6 @@ export const createNewUserFailed = () => ({
 export const getAllUserStart = () => {
   return async (dispatch, getState) => {
     try {
-      // dispatch({ type: actionTypes.GET_ALL_USER_START });
       let userArr = await getAllUsers("ALL");
       if (userArr && userArr.errCode === 0) {
         console.log("hello from adminAction");

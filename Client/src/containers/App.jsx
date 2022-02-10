@@ -11,10 +11,11 @@ import {
 } from "../hoc/authentication";
 import DetailDoctor from "./HomePage/DetailDoctor/DetailDoctor";
 import { path } from "../utils";
-import Home from "../routes/Home";
+import Home from "../routes/System/Home";
 // import Login from '../routes/Login';
-import Login from "./Auth/Login";
-import System from "../routes/System";
+import Login from "./Authentication/Login";
+import Admin from "../routes/System/Admin";
+import Doctor from "../routes/System/Doctor";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from "./HomePage/HomePage.jsx";
 class App extends Component {
@@ -52,12 +53,15 @@ class App extends Component {
                     component={userIsNotAuthenticated(Login)}
                   />
                   <Route
-                    path={path.SYSTEM}
-                    component={userIsAuthenticated(System)}
+                    path={path.ADMIN}
+                    component={userIsAuthenticated(Admin)}
+                  />
+                  <Route
+                    path={path.DOCTOR}
+                    component={userIsAuthenticated(Doctor)}
                   />
                   <Route path={path.HOMEPAGE} component={HomePage} />
-                  <Route path ={path.DETAIL_DOCTOR} component={DetailDoctor}/>
-
+                  <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                 </Switch>
               </CustomScrollbars>
             </div>
@@ -87,8 +91,6 @@ class App extends Component {
               draggable
               pauseOnHover
             />
-            {/* Same as */}
-            {/* <ToastContainer /> */}
           </div>
         </Router>
       </Fragment>

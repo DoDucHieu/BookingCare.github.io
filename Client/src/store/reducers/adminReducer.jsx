@@ -4,6 +4,7 @@ const initialState = {
   genders: [],
   roles: [],
   positions: [],
+  time: [],
   users: [],
   isLoadingGender: false,
   isLoadingPosition: false,
@@ -72,7 +73,16 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
+    // time
+    case actionTypes.FETCH_TIME_SUCCESS:
+      state.time = action.dataTime;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_TIME_FAILED:
+      return {
+        ...state,
+      };
     //user
     case actionTypes.GET_ALL_USER_START:
       state.isLoadingUser = true;

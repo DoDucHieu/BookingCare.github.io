@@ -1,0 +1,22 @@
+.manage_schedule{
+    width: 100%;
+    .schedule_container{
+        width: 100%;
+        padding: 0px 100px;
+    }
+    .date{
+        height: 40px;
+    }
+    .time{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 12px;
+        padding: 0px 8px;
+        border-radius: 3px;
+        height: 32px;
+        border: 1px solid gray;
+    }
+    .time-select{
+        background-color: rgb(255, 208, 0);
+    }
+}
