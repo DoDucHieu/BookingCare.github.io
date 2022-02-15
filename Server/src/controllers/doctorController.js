@@ -22,7 +22,7 @@ let handleGetAllDoctor = async (req, res) => {
   });
 };
 
-let handleCreateDetailDoctor = async (req, res) => {
+let handleEditOrCreateDetailDoctor = async (req, res) => {
   let inputData = req.body;
   if (!inputData) {
     return res.status(500).json({
@@ -30,26 +30,13 @@ let handleCreateDetailDoctor = async (req, res) => {
       errMessage: "Missing require parameter!",
     });
   }
-  let response = await doctorServices.createDetailDoctor(inputData);
+  let response = await doctorServices.editOrCreateDetailDoctor(inputData);
   return res.status(200).json({
     errCode: response.errCode,
     errMessage: response.errMessage,
   });
 };
-let handleEditDetailDoctor = async (req, res) => {
-  let inputData = req.body;
-  if (!inputData) {
-    return res.status(500).json({
-      errCode: 1,
-      errMessage: "Missing require parameter!",
-    });
-  }
-  let response = await doctorServices.editDetailDoctor(inputData);
-  return res.status(200).json({
-    errCode: response.errCode,
-    errMessage: response.errMessage,
-  });
-};
+
 let handleGetDetailDoctor = async (req, res) => {
   let doctorId = req.query.id;
   if (!doctorId) {
@@ -72,10 +59,56 @@ let handleGetDetailDoctor = async (req, res) => {
     });
   }
 };
+
+let handleCreateBulkDoctorSchedule = async (req, res) => {
+  let dataSchedule = req.body;
+  if (!dataSchedule || dataSchedule.length === 0) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: "Missing parameter required!",
+    });
+  }
+  let response = await doctorServices.createBulkDoctorSchedule(dataSchedule);
+  if (response) {
+    return res.status(200).json({
+      errCode: response.errCode,
+      errMessage: response.errMessage,
+      data: response.data,
+    });
+  } else {
+    return res.status(500).json({
+      errCode: 5,
+      errMessage: "err from sever!",
+    });
+  }
+};
+let handleGetDoctorScheduleByDate = async (req, res) => {
+  let data = req.query;
+  if (!data || !data.doctorId || !data.dateSelected) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: "Missing parameter required!",
+    });
+  }
+  let response = await doctorServices.getDoctorScheduleByDate(data);
+  if (response) {
+    return res.status(200).json({
+      errCode: response.errCode,
+      errMessage: response.errMessage,
+      data: response.data,
+    });
+  } else {
+    return res.status(500).json({
+      errCode: 5,
+      errMessage: "err from sever!",
+    });
+  }
+};
 module.exports = {
   handleGetTopDoctor: handleGetTopDoctor,
   handleGetAllDoctor: handleGetAllDoctor,
-  handleCreateDetailDoctor: handleCreateDetailDoctor,
+  handleEditOrCreateDetailDoctor: handleEditOrCreateDetailDoctor,
   handleGetDetailDoctor: handleGetDetailDoctor,
-  handleEditDetailDoctor: handleEditDetailDoctor,
+  handleCreateBulkDoctorSchedule: handleCreateBulkDoctorSchedule,
+  handleGetDoctorScheduleByDate: handleGetDoctorScheduleByDate,
 };

@@ -67,6 +67,24 @@
         "day":"Day",
         "time":"Time"
 
+    },
+    "manage-doctor":{
+        "title":"MANAGE DOCTOR",
+        "select-doctor":"Select doctor:",
+        "description":"Description:",
+        "create":"Create",
+        "save-change":"Save change",
+        "clinic-name":"Clinic's name:",
+        "clinic-address":"Clinic's address:",
+        "select-province":"Select province:",
+        "select-price":"Select price:",
+        "payment-method":"Payment method:",
+        "note":"Note:"
+    },
+    "doctor-schedule":{
+        "today":"Today",
+        "doctor-schedule":"Schedule",
+        "notification-schedule":"Doctor doesn't have schedule in this day, please choose another date!"
     }
 
 

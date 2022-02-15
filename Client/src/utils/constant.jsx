@@ -21,7 +21,7 @@ export const manageActions = {
 };
 
 export const dateFormat = {
-  SEND_TO_SERVER: "DD/MM/YYYY",
+  DATE_FORMAT: "YYYY-MM-DD",
 };
 
 export const YesNoObj = {

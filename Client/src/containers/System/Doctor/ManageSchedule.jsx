@@ -7,11 +7,14 @@ import { CommonUtils, manageActions, LANGUAGES } from "../../../utils";
 import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
 import Select from "react-select";
+import moment from "moment";
+import { dateFormat } from "../../../utils";
 
 class ManageSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedOption: "",
       arrDoctor: [],
       timeArr: [],
       doctorId: "",
@@ -26,17 +29,8 @@ class ManageSchedule extends Component {
     this.props.getTimeRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
-    let yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    today = yyyy + "-" + mm + "-" + dd;
+    let dateToday = new Date();
+    let today = moment(dateToday).format(dateFormat.DATE_FORMAT);
     if (this.state.currentDate !== today) {
       this.setState({
         currentDate: today,
@@ -86,7 +80,7 @@ class ManageSchedule extends Component {
   handleOnchangeInputDate = (event) => {
     this.setState(
       {
-        dateSelect: event.target.value,
+        dateSelect: moment(event.target.value).format(dateFormat.DATE_FORMAT),
       },
       () => {
         console.log("check date: ", this.state.dateSelect);
@@ -94,16 +88,14 @@ class ManageSchedule extends Component {
     );
   };
   handleOnclickSelectTime = (item) => {
-    // console.log("before:", this.state.timeArr);
     item.isSelected = !item.isSelected;
-    // console.log("after:", this.state.timeArr);
-    let arr = this.state.timeArr.filter((item, index) => {
+    let arr = this.state.timeArr.filter((item) => {
       return item.isSelected;
     });
     let arrTime = [];
     if (arr.length > 0) {
-      arrTime = arr.map((item, index) => {
-        return this.props.language === "vi" ? item.valueVi : item.valueEn;
+      arrTime = arr.map((item) => {
+        return item.keyMap;
       });
     }
     this.setState({
@@ -111,8 +103,22 @@ class ManageSchedule extends Component {
     });
   };
 
-  handleOnclickSaveSchedule = () => {
-    console.log("check state manage schedule: ", this.state);
+  handleOnclickSaveSchedule = async () => {
+    let arr = this.state.arrTimeSelect.map((item) => {
+      return {
+        doctorId: this.state.doctorId,
+        date: this.state.dateSelect,
+        timeType: item,
+      };
+    });
+    await this.props.createBulkDoctocScheduleRedux(arr);
+    this.state.timeArr.forEach((item) => (item.isSelected = false));
+    this.setState({
+      selectedOption: "",
+      doctorId: "",
+      dateSelect: "",
+      arrTimeSelect: [],
+    });
   };
   render() {
     const { isLoggedIn } = this.props;
@@ -191,6 +197,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getAllDoctorRedux: () => dispatch(actions.getAllDoctorStart()),
     getTimeRedux: () => dispatch(actions.fetchTimeStart()),
+    createBulkDoctocScheduleRedux: (data) =>
+      dispatch(actions.createBulkDoctorScheduleStart(data)),
   };
 };
 

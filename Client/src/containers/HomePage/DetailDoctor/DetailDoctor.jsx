@@ -7,6 +7,7 @@ import HomeHeader from "../HomeHeader/HomeHeader";
 import "./DetailDoctor.scss";
 import * as actions from "../../../store/actions";
 import HomeFooter from "../HomeFooter/HomeFooter";
+import DoctorSchedule from "./DoctorSchedule";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class DetailDoctor extends Component {
   }
 
   render() {
-    // console.log(this.props.match.params.id)
+    // console.log(this.props.match.params.id);
     let { detailDoctor } = this.state;
     let position = "";
     let imgBase64 = "";
@@ -75,7 +76,7 @@ class DetailDoctor extends Component {
             <span>/</span>
             <a href="">Da liễu</a>
           </div>
-          <div className="doctor_intro">
+          <div className="doctor_intro-container">
             <img src={imgBase64} alt="" className="doctor_intro-avatar" />
             <div className="doctor_intro-detail">
               <b className="doctor_name">
@@ -84,7 +85,14 @@ class DetailDoctor extends Component {
               <p className="doctor_intro">{description}</p>
             </div>
           </div>
-          <div className="doctor_schedule">Doctor schedule</div>
+          <div className="schedule_address">
+            <div className="schedule_address-left">
+              {this.state.detailDoctor && this.state.detailDoctor.id && (
+                <DoctorSchedule doctorId={this.state.detailDoctor.id} />
+              )}
+            </div>
+            <div className="schedule_address-right"></div>
+          </div>
           <div
             className="doctor_specialty"
             dangerouslySetInnerHTML={{ __html: specialtyOfDoctor }}

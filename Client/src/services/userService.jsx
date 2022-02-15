@@ -33,8 +33,8 @@ let getAllDoctor = () => {
   return axios.get("/api/get-all-doctor");
 };
 // create detail doctor
-let createDetailDoctor = (data) => {
-  return axios.post("/api/create-detail-doctor", data);
+let editOrCreateDetailDoctor = (data) => {
+  return axios.post("/api/edit-or-create-detail-doctor", data);
 };
 
 let getDetailDoctor = (id) => {
@@ -43,6 +43,15 @@ let getDetailDoctor = (id) => {
 
 let editDetailDoctor = (data) => {
   return axios.put("/api/edit-detail-doctor", data);
+};
+let createBulkDoctorSchedule = (data) => {
+  return axios.post("/api/post-bulk-doctor-schedule", data);
+};
+
+let getDoctorSchedule = (doctorId, dateSelected) => {
+  return axios.get(
+    `/api/get-doctor-schedule-by-date?doctorId=${doctorId}&dateSelected=${dateSelected}`
+  );
 };
 export {
   handleLogin,
@@ -53,7 +62,9 @@ export {
   getAllCode,
   getOutstandingDoctor,
   getAllDoctor,
-  createDetailDoctor,
+  editOrCreateDetailDoctor,
   getDetailDoctor,
   editDetailDoctor,
+  createBulkDoctorSchedule,
+  getDoctorSchedule,
 };

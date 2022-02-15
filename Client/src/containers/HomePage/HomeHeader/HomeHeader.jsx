@@ -14,7 +14,6 @@ class HomeHeader extends Component {
     this.props.history.push("/home");
   };
   render() {
-    console.log("homeHeader:", this.props.isDisplayBanner);
     return (
       <div className="homeHeader">
         <div className="homeHeader_top">

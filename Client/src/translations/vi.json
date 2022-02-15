@@ -70,6 +70,25 @@
         "doctor":"Bác sĩ",
         "day":"Ngày",
         "time":"Giờ"
+    },
+    "manage-doctor":{
+        "title":"QUẢN LÝ BÁC SĨ",
+        "select-doctor":"Chọn bác sĩ:",
+        "description":"Mô tả:",
+        "create":"Tạo",
+        "save-change":"Lưu thay đổi",
+        "clinic-name":"Tên phòng khám:",
+        "clinic-address":"Địa chỉ phòng khám:",
+        "select-province":"Chọn tỉnh thành:",
+        "select-price":"Chọn giá khám:",
+        "payment-method":"Phương thức thanh toán:",
+        "note":"Ghi chú:"
+    },
+    "doctor-schedule":{
+        "today":"Hôm nay",
+        "doctor-schedule":"Lịch khám",
+        "notification-schedule":"Bác sỹ hiện không có lịch hẹn vào ngày này, vui lòng chọn ngày khác!"
     }
+
 
 }

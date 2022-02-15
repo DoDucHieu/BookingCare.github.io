@@ -8,9 +8,10 @@ import {
   editUser,
   getOutstandingDoctor,
   getAllDoctor,
-  createDetailDoctor,
+  editOrCreateDetailDoctor,
   getDetailDoctor,
-  editDetailDoctor,
+  createBulkDoctorSchedule,
+  getDoctorSchedule,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 
@@ -289,31 +290,31 @@ export let getAllDoctorFailed = () => {
   };
 };
 
-export let createDetailDoctorStart = (data) => {
+export let editOrCreateDetailDoctorStart = (data) => {
   return async (dispatch, getState) => {
     try {
-      let result = await createDetailDoctor(data);
+      let result = await editOrCreateDetailDoctor(data);
       if (result && result.errCode === 0) {
-        dispatch(createDetailDoctorSuccess());
+        dispatch(editOrCreateDetailDoctorSuccess());
       } else {
-        dispatch(createDetailDoctorFailed());
+        dispatch(editOrCreateDetailDoctorFailed());
       }
     } catch (e) {
       console.log(e);
-      dispatch(createDetailDoctorFailed());
+      dispatch(editOrCreateDetailDoctorFailed());
     }
   };
 };
-export let createDetailDoctorSuccess = (data) => {
-  toast.success("CREATE DETAIL DOCTOR SUCCESS!");
+export let editOrCreateDetailDoctorSuccess = (data) => {
+  toast.success("EDIT OR CREATE DETAIL DOCTOR SUCCESS!");
   return {
-    type: actionTypes.CREATE_DETAIL_DOCTOR_SUCCESS,
+    type: actionTypes.EDIT_OR_CREATE_DETAIL_MARKDOWN_DOCTOR_SUCCESS,
   };
 };
-export let createDetailDoctorFailed = () => {
-  toast.failed("CREATE DETAIL DOCTOR FAILED!");
+export let editOrCreateDetailDoctorFailed = () => {
+  toast.error("EDIT OR CREATE DETAIL DOCTOR FAILED!");
   return {
-    type: actionTypes.CREATE_DETAIL_DOCTOR_FAILED,
+    type: actionTypes.EDIT_OR_CREATE_DETAIL_MARKDOWN_DOCTOR_FAILED,
   };
 };
 
@@ -345,30 +346,148 @@ export let getDetailDoctorFailed = () => {
   };
 };
 
-export let editDetailDoctorStart = (data) => {
-  return async (dispatch, getState) => {
+export let createBulkDoctorScheduleStart = (data) => {
+  return async (dispatch, getstate) => {
     try {
-      let result = await editDetailDoctor(data);
-      if (result && result.errCode === 0) {
-        dispatch(editDetailDoctorSuccess());
+      if (data.length === 0) {
+        toast.error("MISSING TIME SCHEDULE!");
+        return;
       } else {
-        dispatch(editDetailDoctorFailed());
+        if (!data[0].doctorId || !data[0].date) {
+          toast.error("MISSING DATE OR DOCTOR!");
+          return;
+        }
+        let result = await createBulkDoctorSchedule(data);
+        if (result && result.errCode === 0) {
+          dispatch(createBulkDoctorScheduleSuccess());
+        } else {
+          dispatch(createBulkDoctorScheduleFailed());
+        }
       }
     } catch (e) {
       console.log(e);
-      dispatch(editDetailDoctorFailed());
+      dispatch(createBulkDoctorScheduleFailed());
     }
   };
 };
-export let editDetailDoctorSuccess = (data) => {
-  toast.success("EDIT DETAIL DOCTOR SUCCESS!");
+
+export let createBulkDoctorScheduleSuccess = () => {
+  toast.success("CREATE DOCTOR SCHEDULE SUCCESS!");
   return {
-    type: actionTypes.EDIT_DETAIL_DOCTOR_SUCCESS,
+    type: actionTypes.CREATE_BULK_DOCTOR_SCHEDULE_SUCCESS,
   };
 };
-export let editDetailDoctorFailed = () => {
-  toast.failed("EDIT DETAIL DOCTOR FAILED!");
+export let createBulkDoctorScheduleFailed = () => {
+  toast.error("CREATE DOCTOR SCHEDULE FAILED!");
   return {
-    type: actionTypes.EDIT_DETAIL_DOCTOR_FAILED,
+    type: actionTypes.CREATE_BULK_DOCTOR_SCHEDULE_FAILED,
+  };
+};
+
+export let getDoctorScheduleStart = (doctorId, dateSelected) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getDoctorSchedule(doctorId, dateSelected);
+      if (result) {
+        dispatch(getDoctorScheduleSuccess(result.data));
+      } else {
+        dispatch(getDoctorScheduleFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(getDoctorScheduleFailed());
+    }
+  };
+};
+export let getDoctorScheduleSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_SCHEDUlE_SUCCESS,
+    data: data,
+  };
+};
+export let getDoctorScheduleFailed = (data) => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_SCHEDUlE_FAILED,
+  };
+};
+
+export let fetchProvinceStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getAllCode("PROVINCE");
+      if (result && result.errCode === 0) {
+        dispatch(fetchProvinceSuccess(result.data));
+      } else {
+        dispatch(fetchProvinceFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchProvinceFailed());
+    }
+  };
+};
+export let fetchProvinceSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_PROVINCE_SUCCESS,
+    data: data,
+  };
+};
+export let fetchProvinceFailed = () => {
+  return {
+    type: actionTypes.FETCH_PROVINCE_FAILED,
+  };
+};
+
+export let fetchPriceStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getAllCode("PRICE");
+      if (result && result.errCode === 0) {
+        dispatch(fetchPriceSuccess(result.data));
+      } else {
+        dispatch(fetchPriceFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchPriceFailed());
+    }
+  };
+};
+export let fetchPriceSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_PRICE_SUCCESS,
+    data: data,
+  };
+};
+export let fetchPriceFailed = () => {
+  return {
+    type: actionTypes.FETCH_PRICE_FAILED,
+  };
+};
+
+export let fetchPaymentMethodStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getAllCode("PAYMENT");
+      if (result && result.errCode === 0) {
+        dispatch(fetchPaymentMethodSuccess(result.data));
+      } else {
+        dispatch(fetchPaymentMethodFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchPaymentMethodFailed());
+    }
+  };
+};
+export let fetchPaymentMethodSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_PAYMENT_METHOD_SUCCESS,
+    data: data,
+  };
+};
+export let fetchPaymentMethodFailed = () => {
+  return {
+    type: actionTypes.FETCH_PAYMENT_METHOD_FAILED,
   };
 };

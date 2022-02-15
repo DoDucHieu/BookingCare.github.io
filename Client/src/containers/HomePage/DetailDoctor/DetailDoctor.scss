@@ -1,10 +1,12 @@
 .detail_doctor {
   margin-top: 80px;
-  padding: 0px 180px;
   width: 100%;
   border: 1px solid goldenrod;
   .detail_doctor-menu {
-    margin: 16px 0px;
+    height: 40px;
+    padding: 0px 180px;
+    display: flex;
+    align-items: center;
     i {
       font-size: 16px;
       margin-right: 4px;
@@ -17,9 +19,11 @@
       color: rgb(255, 115, 0);
     }
   }
-  .doctor_intro {
+  .doctor_intro-container {
     display: flex;
+    align-items: center;
     width: 100%;
+    padding: 0px 180px;
     .doctor_intro-avatar {
       width: 120px;
       height: 120px;
@@ -27,20 +31,30 @@
       object-fit: cover;
     }
     .doctor_intro-detail {
-      width: 600px;
-      margin-left: 16px;
+      width: 500px;
+      margin-left: 8px;
       padding: 0px 8px;
       b {
-        font-size: 20px;
+        font-size: 16px;
       }
       p {
+        font-size: 12px;
       }
     }
   }
-  .doctor_schedule {
-    height: 40px;
-    margin-top: 8px;
+  .schedule_address{
+  padding: 0px 180px;
+    width: 100%;
+    .schedule_address-left{
+      width: 50%;
+    }
+    .schedule_address-right{
+      width: 50%;
+    }
   }
   .doctor_specialty {
+    margin-top: 40px;
+    background-color: rgb(208, 236, 255);
+    padding: 20px 180px;
   }
 }

@@ -6,6 +6,9 @@ const initialState = {
   positions: [],
   time: [],
   users: [],
+  price: [],
+  province: [],
+  paymentMethod: [],
   isLoadingGender: false,
   isLoadingPosition: false,
   isLoadingRole: false,
@@ -13,6 +16,7 @@ const initialState = {
   outstandingDoctor: [],
   allDoctor: [],
   detailDoctor: {},
+  doctorSchedule: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -135,6 +139,42 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.GET_DETAIL_DOCTOR_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_SCHEDUlE_SUCCESS:
+      state.doctorSchedule = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_SCHEDUlE_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PROVINCE_SUCCESS:
+      state.province = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PROVINCE_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PRICE_SUCCESS:
+      state.price = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PRICE_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PAYMENT_METHOD_SUCCESS:
+      state.paymentMethod = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PAYMENT_METHOD_FAILED:
       return {
         ...state,
       };
