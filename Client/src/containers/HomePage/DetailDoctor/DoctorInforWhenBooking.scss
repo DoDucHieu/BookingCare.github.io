@@ -1,0 +1,38 @@
+.doctorInfor_when_booking{
+    width: 100%;
+    padding-top: 8px;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    .doctor-avt{
+        width: 100px;
+        height: 100px;
+        // object-fit: cover;
+        border-radius: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .infor{
+        margin-left: 20px;
+        p{
+            margin: 0;
+            margin-bottom: 4px;
+        }
+        .doctor-name{
+            color: rgb(0, 76, 148);
+            font-size: 20px;
+        }
+        .time{
+            .time_title{
+                margin-right: 4px;
+            }
+        }
+        .price{
+            color: red;
+            .price_title{
+                margin-right: 4px;
+            }
+        }
+    }
+}

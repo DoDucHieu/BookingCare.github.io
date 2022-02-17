@@ -17,6 +17,8 @@ const initialState = {
   allDoctor: [],
   detailDoctor: {},
   doctorSchedule: [],
+  doctorExtraInfor: {},
+  doctorInforWhenBooking: {},
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -175,6 +177,24 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.FETCH_PAYMENT_METHOD_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_EXTRA_INFOR_SUCCESS:
+      state.doctorExtraInfor = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_EXTRA_INFOR_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_SUCCESS:
+      state.doctorInforWhenBooking = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_FAILED:
       return {
         ...state,
       };

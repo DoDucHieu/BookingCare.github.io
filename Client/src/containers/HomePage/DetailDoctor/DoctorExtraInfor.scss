@@ -1,0 +1,87 @@
+.doctorExtraInfor{
+    margin-top: 8px;
+    .doctorExtraInfor_title{
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .clinic_name{
+        margin-bottom: 0;
+    }
+    .clinic_address{
+    }
+    .price{
+        border-top: 1px solid rgb(128, 128, 128);
+        padding-top: 8px;
+
+        .price_brief{
+            display: flex;
+            .price_title{
+                font-size: 13px;
+                font-weight: 600;
+                text-transform: uppercase;
+
+            }
+            .price_number{
+                margin-left: 4px;
+            }
+            .showHide_detail-price{
+                cursor: pointer;
+                margin-left: 12px;
+                color:green
+
+            }
+            .showHide_detail-price:hover{
+                color: rgb(255, 208, 0);
+
+            }
+        }
+        .price_detail{
+            .price_title{
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 12px;
+                text-transform: uppercase;
+
+            }
+            .price_table-detail{
+                .price_table-detail-top{
+                    display: flex;
+                    justify-content: space-between;
+                    background-color: rgb(245, 245, 245);
+                    padding: 0px 12px;
+                    padding-top: 4px;
+                    border-top: 1px solid gray;
+                    border-left: 1px solid gray;
+                    border-right: 1px solid gray;
+                }
+                .price_desciption{
+                    padding: 0px 12px;
+                    background-color: rgb(245, 245, 245);
+                    padding-bottom: 4px;
+                    margin: 0;
+                    border-left: 1px solid gray;
+                    border-right: 1px solid gray;
+                }
+                .payment{
+                    padding: 0px 12px;
+                    height: 32px;
+                    line-height: 32px;
+                    background-color: rgb(214, 214, 214);
+                    border: 1px solid gray;
+
+                }
+            }
+            
+            .showHide_detail-price{
+                cursor: pointer;
+                color:green;
+                margin-left: 0;
+            }
+            .showHide_detail-price:hover{
+                color: rgb(255, 208, 0);
+
+            }
+        }
+    }
+}

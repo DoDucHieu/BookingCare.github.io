@@ -8,6 +8,7 @@ import "./DetailDoctor.scss";
 import * as actions from "../../../store/actions";
 import HomeFooter from "../HomeFooter/HomeFooter";
 import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfor from "./DoctorExtraInfor";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -85,13 +86,17 @@ class DetailDoctor extends Component {
               <p className="doctor_intro">{description}</p>
             </div>
           </div>
-          <div className="schedule_address">
-            <div className="schedule_address-left">
+          <div className="schedule_doctorExtraInfor">
+            <div className="schedule_doctorExtraInfor-left">
               {this.state.detailDoctor && this.state.detailDoctor.id && (
                 <DoctorSchedule doctorId={this.state.detailDoctor.id} />
               )}
             </div>
-            <div className="schedule_address-right"></div>
+            <div className="schedule_doctorExtraInfor-right">
+              {this.state.detailDoctor && this.state.detailDoctor.id && (
+                <DoctorExtraInfor doctorId={this.state.detailDoctor.id} />
+              )}
+            </div>
           </div>
           <div
             className="doctor_specialty"

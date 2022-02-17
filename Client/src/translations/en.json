@@ -85,7 +85,27 @@
         "today":"Today",
         "doctor-schedule":"Schedule",
         "notification-schedule":"Doctor doesn't have schedule in this day, please choose another date!"
+    },
+    "doctor-extra-infor":{
+        "examination-address":"Examination address",
+        "examination-price":"Examination price",
+        "more-detail":"More detail",
+        "hide-detail":"Hide detail",
+        "payment-method":"You can pay via "
+    },
+    "doctor-schedule-modal":{
+    "booking-schedule":"Booking schedule",
+    "full-name":"Full name",
+    "address-contact":"Address contact",
+    "email-contact":"Email contact",
+    "phone-number":"Phone number",
+    "reason-for-examination":"Reason for examination",
+    "gender":"Gender",
+    "book-for":"Booking for"
+    },
+    "doctor-infor-when-booking":{
+        "time":"Time:",
+        "price":"Price:"
     }
-
 
 }

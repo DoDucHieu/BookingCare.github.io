@@ -2,24 +2,21 @@
     width: 100%;
     margin-top: 8px;
     .doctor_schedule-header{
-        height: 30px;
-        display: flex;
         .select_date{
             width: 118px;
             height: 28px;
             border: none;
-            border-bottom: 1px solid rgb(0, 174, 255);
-            outline: none;
+            border-bottom: 1px solid rgb(0, 0, 0);
             border-radius: 5px;
+            outline: none;
             color: rgb(0, 0, 0);
             font-weight: 600;
             font-size: 13px;
-            color: rgb(0, 174, 255);
         }
         .header_logo_text{
             display: flex;
+            margin-top: 16px;
             align-items: center;
-            margin-left: 16px;
             i{
                 font-size: 14px;
                 color: #000000;
@@ -37,8 +34,7 @@
     }
     .doctor_schedule-body{
         .doctor_schedule-table{
-            margin-top: 8px;
-            margin-left: 136px;
+            margin-top: 16px;
             .btn_doctor-schedule{
                 font-size: 12px;
                 font-weight: 600;
@@ -51,7 +47,7 @@
                 border: none;
             }
             .btn_doctor-schedule:hover{
-                background-color: #45c3d2;
+                background-color: #79dbe6;
             }
             .noticfication{
                 font-size: 13px;
@@ -62,5 +58,4 @@
         }
 
     }
-
 }

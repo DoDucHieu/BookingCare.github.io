@@ -114,22 +114,6 @@ let editOrCreateDetailDoctor = async (data) => {
       errCode: 0,
       errMessage: "handle success!",
     };
-    // if (checkExistsMarkdown && checkExistsDoctorInfor) {
-    //   return {
-    //     errCode: 0,
-    //     errMessage: "Edit detail doctor success!",
-    //   };
-    // } else if (resultMarkdown && resultDoctorInfor) {
-    //   return {
-    //     errCode: 0,
-    //     errMessage: "Create detail doctor success!",
-    //   };
-    // } else {
-    //   return {
-    //     errCode: 1,
-    //     errMessage: "Err from sever!",
-    //   };
-    // }
   } catch (e) {
     console.log(e);
   }
@@ -194,6 +178,7 @@ let getDetailDoctor = async (doctorId) => {
       return {
         errCode: 2,
         errMessage: "error from sever!",
+        data: {},
       };
     }
   } catch (e) {
@@ -271,7 +256,7 @@ let getDoctorScheduleByDate = async (data) => {
       return {
         errCode: 2,
         errMessage: "error from sever!",
-        data: [],
+        data: {},
       };
     }
   } catch (e) {
@@ -279,6 +264,96 @@ let getDoctorScheduleByDate = async (data) => {
   }
 };
 
+let getDoctorExtraInforById = async (id) => {
+  try {
+    let result = await db.DoctorInfor.findOne({
+      where: {
+        doctorId: id,
+      },
+      attributes: ["addressClinic", "nameClinic", "note"],
+      include: [
+        {
+          model: db.Allcode,
+          as: "provinceData",
+          attributes: ["valueEn", "valueVi"],
+        },
+        {
+          model: db.Allcode,
+          as: "priceData",
+          attributes: ["valueEn", "valueVi"],
+        },
+        {
+          model: db.Allcode,
+          as: "paymentData",
+          attributes: ["valueEn", "valueVi"],
+        },
+      ],
+      raw: true,
+      nest: true,
+    });
+    if (result) {
+      return {
+        errCode: 0,
+        errMessage: "Get doctor extra infor by id success!",
+        data: result,
+      };
+    } else {
+      return {
+        errCode: 2,
+        errMessage: "Err from server!",
+        data: {},
+      };
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+let getDoctorInforWhenBooking = async (doctorId) => {
+  try {
+    let result = await db.User.findOne({
+      where: { id: doctorId },
+      attributes: {
+        exclude: ["password"],
+      },
+      include: [
+        {
+          model: db.Allcode,
+          as: "positionData",
+          attributes: ["valueEn", "valueVi"],
+        },
+        {
+          model: db.DoctorInfor,
+          attributes: ["priceId"],
+          include: [
+            {
+              model: db.Allcode,
+              as: "priceData",
+              attributes: ["valueEn", "valueVi", "keyMap"],
+            },
+          ],
+        },
+      ],
+      raw: true,
+      nest: true,
+    });
+    if (result) {
+      return {
+        errCode: 0,
+        errMessage: "get detail doctor success!",
+        data: result,
+      };
+    } else {
+      return {
+        errCode: 2,
+        errMessage: "error from sever!",
+        data: {},
+      };
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 module.exports = {
   getTopDoctor: getTopDoctor,
   getAllDoctor: getAllDoctor,
@@ -286,4 +361,6 @@ module.exports = {
   getDetailDoctor: getDetailDoctor,
   createBulkDoctorSchedule: createBulkDoctorSchedule,
   getDoctorScheduleByDate: getDoctorScheduleByDate,
+  getDoctorExtraInforById: getDoctorExtraInforById,
+  getDoctorInforWhenBooking: getDoctorInforWhenBooking,
 };

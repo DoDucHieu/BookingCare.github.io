@@ -53,6 +53,16 @@ let getDoctorSchedule = (doctorId, dateSelected) => {
     `/api/get-doctor-schedule-by-date?doctorId=${doctorId}&dateSelected=${dateSelected}`
   );
 };
+
+let getDoctorExtraInfor = (doctorId) => {
+  return axios.get(`api/get-doctor-extra-infor-by-id?doctorId=${doctorId}`);
+};
+
+let getDoctorInforWhenBooking = (doctorId) => {
+  return axios.get(
+    `api/get-doctor-infor-when-booking-by-id?doctorId=${doctorId}`
+  );
+};
 export {
   handleLogin,
   getAllUsers,
@@ -67,4 +77,6 @@ export {
   editDetailDoctor,
   createBulkDoctorSchedule,
   getDoctorSchedule,
+  getDoctorExtraInfor,
+  getDoctorInforWhenBooking,
 };

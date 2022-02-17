@@ -1,7 +1,7 @@
 .detail_doctor {
   margin-top: 80px;
   width: 100%;
-  border: 1px solid goldenrod;
+  padding-top: 8px;
   .detail_doctor-menu {
     height: 40px;
     padding: 0px 180px;
@@ -31,7 +31,7 @@
       object-fit: cover;
     }
     .doctor_intro-detail {
-      width: 500px;
+      width: 60%;
       margin-left: 8px;
       padding: 0px 8px;
       b {
@@ -42,19 +42,22 @@
       }
     }
   }
-  .schedule_address{
+  .schedule_doctorExtraInfor{
   padding: 0px 180px;
     width: 100%;
-    .schedule_address-left{
+    display: flex;
+    .schedule_doctorExtraInfor-left{
       width: 50%;
     }
-    .schedule_address-right{
+    .schedule_doctorExtraInfor-right{
       width: 50%;
+      padding-left: 36px;
+      border-left: 1px solid rgb(221, 213, 213);
     }
   }
   .doctor_specialty {
-    margin-top: 40px;
-    background-color: rgb(208, 236, 255);
+    margin-top: 30px;
+    background-color: rgb(251, 253, 236);
     padding: 20px 180px;
   }
 }

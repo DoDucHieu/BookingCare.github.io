@@ -12,6 +12,8 @@ import {
   getDetailDoctor,
   createBulkDoctorSchedule,
   getDoctorSchedule,
+  getDoctorExtraInfor,
+  getDoctorInforWhenBooking,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 
@@ -489,5 +491,63 @@ export let fetchPaymentMethodSuccess = (data) => {
 export let fetchPaymentMethodFailed = () => {
   return {
     type: actionTypes.FETCH_PAYMENT_METHOD_FAILED,
+  };
+};
+
+export let fetchDoctorExtraInforStart = (doctorId) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getDoctorExtraInfor(doctorId);
+      if (result && result.errCode === 0) {
+        dispatch(fetchDoctorExtraInforSuccess(result.data));
+      } else {
+        dispatch(fetchDoctorExtraInforFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchDoctorExtraInforFailed());
+    }
+  };
+};
+
+export let fetchDoctorExtraInforSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_EXTRA_INFOR_SUCCESS,
+    data: data,
+  };
+};
+
+export let fetchDoctorExtraInforFailed = () => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_EXTRA_INFOR_FAILED,
+  };
+};
+
+export let fetchDoctorInforWhenBookingStart = (doctorId) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getDoctorInforWhenBooking(doctorId);
+      if (result && result.errCode === 0) {
+        dispatch(fetchDoctorInforWhenBookingSuccess(result.data));
+      } else {
+        dispatch(fetchDoctorInforWhenBookingFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchDoctorInforWhenBookingFailed());
+    }
+  };
+};
+
+export let fetchDoctorInforWhenBookingSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_SUCCESS,
+    data: data,
+  };
+};
+
+export let fetchDoctorInforWhenBookingFailed = () => {
+  return {
+    type: actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_FAILED,
   };
 };

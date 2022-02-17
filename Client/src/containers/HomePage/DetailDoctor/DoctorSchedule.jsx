@@ -8,7 +8,7 @@ import * as actions from "../../../store/actions";
 import moment from "moment";
 import localization from "moment/locale/vi";
 import { dateFormat } from "../../../utils";
-
+import BookingScheduleModal from "./BookingScheduleModal";
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +17,8 @@ class DoctorSchedule extends Component {
       dateSelected: moment(new Date()).format(dateFormat.DATE_FORMAT),
       doctorId: this.props.doctorId,
       doctorSchedule: [],
+      isOpenBookingScheduleModal: false,
+      dataToDoctorScheduleModal: {},
     };
   }
 
@@ -70,6 +72,12 @@ class DoctorSchedule extends Component {
       }
     );
   };
+  handleOnlickBookingSchedule = (item) => {
+    this.setState({
+      isOpenBookingScheduleModal: !this.state.isOpenBookingScheduleModal,
+      dataToDoctorScheduleModal: item ? item : {},
+    });
+  };
   render() {
     let { arrDate } = this.state;
     return (
@@ -115,7 +123,11 @@ class DoctorSchedule extends Component {
               this.state.doctorSchedule.length > 0 ? (
                 this.state.doctorSchedule.map((item, index) => {
                   return (
-                    <button key={index} className="btn_doctor-schedule">
+                    <button
+                      key={index}
+                      className="btn_doctor-schedule"
+                      onClick={() => this.handleOnlickBookingSchedule(item)}
+                    >
                       {this.props.language === LANGUAGES.EN
                         ? item.timeData.valueEn
                         : item.timeData.valueVi}
@@ -138,6 +150,14 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+        {this.state.isOpenBookingScheduleModal &&
+          this.state.dataToDoctorScheduleModal && (
+            <BookingScheduleModal
+              isOpen={this.state.isOpenBookingScheduleModal}
+              handleShowHideModal={this.handleOnlickBookingSchedule.bind(this)}
+              dataFromDoctorSchedule={this.state.dataToDoctorScheduleModal}
+            />
+          )}
       </>
     );
   }

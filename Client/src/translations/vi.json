@@ -88,7 +88,27 @@
         "today":"Hôm nay",
         "doctor-schedule":"Lịch khám",
         "notification-schedule":"Bác sỹ hiện không có lịch hẹn vào ngày này, vui lòng chọn ngày khác!"
+    },
+    "doctor-extra-infor":{
+        "examination-address":"Địa chỉ khám",
+        "examination-price":"Giá khám",
+        "more-detail":"Xem chi tiết",
+        "hide-detail":"Ẩn bảng giá",
+        "payment-method":"Bạn có thể thanh toán qua hình thức "
+    },
+    "doctor-schedule-modal":{
+        "booking-schedule":"Đặt lịch khám",
+        "full-name":"Họ Và Tên",
+        "address-contact":"Địa chỉ liên hệ",
+        "email-contact":"Email liên hệ",
+        "phone-number":"Số điện thoại",
+        "reason-for-examination":"Lí do khám",
+        "gender":"Giới tính",
+        "book-for":"Đặt cho ai"
+    },
+    "doctor-infor-when-booking":{
+        "time":"Thời gian:",
+        "price":"Giá khám:"
     }
-
 
 }

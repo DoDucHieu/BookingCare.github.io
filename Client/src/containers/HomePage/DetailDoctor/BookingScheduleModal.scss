@@ -1,0 +1,42 @@
+.booking_schedule-modal{
+    .modal_header{
+        height: 32px;
+        background-color: #3585fd;
+        padding: 4px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .modal_header-title{
+            font-size: 14px;
+            color: white;
+            text-transform: uppercase;
+        }
+        i{
+            cursor: pointer;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+    }
+    .model_body{
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .modal_footer{
+        height: 40px;
+        .footer_btn{
+            display: flex;
+            justify-content: right;
+            .booking_save{
+                padding: 0px 12px;
+            }
+            .booking_cancel{
+                padding: 0px 12px;
+                margin: 0px 12px;
+            }
+        }
+
+    }
+
+}
