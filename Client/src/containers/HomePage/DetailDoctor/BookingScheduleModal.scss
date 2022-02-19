@@ -18,13 +18,13 @@
         }
     }
     .model_body{
-        height: 500px;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
     .modal_footer{
         height: 40px;
+        margin-top: 16px;
         .footer_btn{
             display: flex;
             justify-content: right;

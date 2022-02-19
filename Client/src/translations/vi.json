@@ -98,13 +98,13 @@
     },
     "doctor-schedule-modal":{
         "booking-schedule":"Đặt lịch khám",
-        "full-name":"Họ Và Tên",
+        "full-name":"Họ và Tên",
         "address-contact":"Địa chỉ liên hệ",
         "email-contact":"Email liên hệ",
         "phone-number":"Số điện thoại",
         "reason-for-examination":"Lí do khám",
         "gender":"Giới tính",
-        "book-for":"Đặt cho ai"
+        "date-of-birth":"Ngày sinh"
     },
     "doctor-infor-when-booking":{
         "time":"Thời gian:",

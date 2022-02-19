@@ -37,7 +37,7 @@ class DoctorExtraInfor extends Component {
     });
   };
   render() {
-    console.log("check state doctorExtraInfor: ", this.state);
+    // console.log("check state doctorExtraInfor: ", this.state);
     let { doctorExtraInfor } = this.state;
     return (
       <>

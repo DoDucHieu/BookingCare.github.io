@@ -32,7 +32,7 @@ class DoctorInforWhenBooking extends Component {
     }
   }
   render() {
-    console.log("doctorInforWhenBooking: ", this.state);
+    // console.log("doctorInforWhenBooking: ", this.state);
     let { doctorInf, timeDetail } = this.state;
     let imgBase64 = "";
     let fullNameDoctor = "";

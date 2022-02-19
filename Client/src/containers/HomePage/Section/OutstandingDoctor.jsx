@@ -75,12 +75,12 @@ class OutstandingDoctor extends Component {
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
     };
-    console.log(this.state.topDoctorArr);
+    // console.log(this.state.topDoctorArr);
     let arrTopDoctor = this.state.topDoctorArr;
     return (
       <div className="specialty outstandingDoctor">
         <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Tướng nổi bật</b>
+          <b className="popularSpecialty-header-text">Bác sỹ nổi bật</b>
           <button className="popularSpecialty-header-button">TÌM KIẾM</button>
         </div>
         <div className="outstandingDoctor-body">

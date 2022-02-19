@@ -18,11 +18,11 @@ class Admin extends Component {
               <Route path="/admin/user-manage" component={UserManage} />
               <Route path="/admin/user-redux" component={UserRedux} />
               <Route path="/admin/manage-doctors" component={DoctorManage} />
-              <Route
+              {/* <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;
                 }}
-              />
+              /> */}
             </Switch>
           </div>
         </div>

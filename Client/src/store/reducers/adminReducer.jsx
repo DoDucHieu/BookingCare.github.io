@@ -19,6 +19,7 @@ const initialState = {
   doctorSchedule: [],
   doctorExtraInfor: {},
   doctorInforWhenBooking: {},
+  isVerifyBookingAppointment: "",
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -32,7 +33,7 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_GENDER_SUCCESS:
       state.genders = action.data;
       state.isLoadingGender = false;
-      console.log("hello from FETCH_GENDER_SUCCESS reducer!", state);
+      // console.log("hello from FETCH_GENDER_SUCCESS reducer!", state);
       return {
         ...state,
       };
@@ -195,6 +196,16 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.VERIFY_BOOKING_APPOINTMENT_SUCCESS:
+      state.isVerifyBookingAppointment = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.VERIFY_BOOKING_APPOINTMENT_FAILED:
+      state.isVerifyBookingAppointment = action.data;
       return {
         ...state,
       };

@@ -101,7 +101,7 @@
     "phone-number":"Phone number",
     "reason-for-examination":"Reason for examination",
     "gender":"Gender",
-    "book-for":"Booking for"
+    "date-of-birth":"Date of birth"
     },
     "doctor-infor-when-booking":{
         "time":"Time:",

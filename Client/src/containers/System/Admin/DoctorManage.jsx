@@ -54,9 +54,6 @@ class DoctorManage extends Component {
       });
     }
     if (prevProps.language !== this.props.language) {
-      let detailDoctor = this.handleFormatDetailDoctor(
-        this.props.detailDoctorRedux
-      );
       this.setState({
         arrDoctor: this.handleFormatLabelValueOfReactSelect(
           this.props.allDoctorRedux,
@@ -74,7 +71,6 @@ class DoctorManage extends Component {
           this.props.paymentMethodRedux,
           ""
         ),
-        ...detailDoctor,
       });
     }
     if (prevProps.provinceRedux !== this.props.provinceRedux) {
@@ -142,15 +138,15 @@ class DoctorManage extends Component {
   }
   handleFormatDetailDoctor = (detailDoctor) => {
     let obj = {};
-    let selectOptionPvovince = {};
+    let selectOptionProvince = {};
     let selectOptionPrice = {};
     let selectOptionPayment = {};
 
-    selectOptionPvovince.label =
+    selectOptionProvince.label =
       this.props.language === LANGUAGES.VI
         ? detailDoctor.DoctorInfor.provinceData.valueVi
         : detailDoctor.DoctorInfor.provinceData.valueEn;
-    selectOptionPvovince.value = detailDoctor.DoctorInfor.provinceData.keyMap;
+    selectOptionProvince.value = detailDoctor.DoctorInfor.provinceData.keyMap;
 
     selectOptionPrice.label =
       this.props.language === LANGUAGES.VI
@@ -173,7 +169,7 @@ class DoctorManage extends Component {
     obj.description = detailDoctor.Markdown.description
       ? detailDoctor.Markdown.description
       : "";
-    obj.provinceSelected = selectOptionPvovince;
+    obj.provinceSelected = selectOptionProvince;
     obj.priceSelected = selectOptionPrice;
     obj.paymentMethodSelected = selectOptionPayment;
     obj.clinicName = detailDoctor.DoctorInfor.nameClinic

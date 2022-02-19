@@ -14,6 +14,8 @@ import {
   getDoctorSchedule,
   getDoctorExtraInfor,
   getDoctorInforWhenBooking,
+  findOrCreateBookingAppointment,
+  verifyBookingAppointment,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 
@@ -23,7 +25,7 @@ export const fetchGenderStart = () => {
     try {
       let result = await getAllCode("GENDER");
       if (result && result.errCode === 0) {
-        console.log("hello from adminAction");
+        // console.log("hello from adminAction");
         dispatch(fetchGenderSuccess(result.data));
       } else {
         dispatch(fetchGenderFailed());
@@ -336,7 +338,7 @@ export let getDetailDoctorStart = (id) => {
   };
 };
 export let getDetailDoctorSuccess = (data) => {
-  console.log("admin action check: ", data);
+  // console.log("admin action check: ", data);
   return {
     type: actionTypes.GET_DETAIL_DOCTOR_SUCCESS,
     data: data,
@@ -549,5 +551,66 @@ export let fetchDoctorInforWhenBookingSuccess = (data) => {
 export let fetchDoctorInforWhenBookingFailed = () => {
   return {
     type: actionTypes.FETCH_DOCTOR_INFOR_WHEN_BOOKING_FAILED,
+  };
+};
+
+export let findOrCreateBookingAppointmentStart = (data) => {
+  return async (disptach, getState) => {
+    try {
+      let result = await findOrCreateBookingAppointment(data);
+      if (result && result.errCode === 0) {
+        dispatch(findOrCreateBookingAppointmentSuccess());
+      } else {
+        dispatch(findOrCreateBookingAppointmentFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(findOrCreateBookingAppointmentFailed());
+    }
+  };
+};
+
+export let findOrCreateBookingAppointmentSuccess = () => {
+  toast.success("SUCCESSFULL!");
+  return {
+    type: actionTypes.FIND_OR_CREATE_BOOKING_APPOINTMENT_SUCCESS,
+  };
+};
+export let findOrCreateBookingAppointmentFailed = () => {
+  toast.error("FAILED!");
+  return {
+    type: actionTypes.FIND_OR_CREATE_BOOKING_APPOINTMENT_FAILED,
+  };
+};
+
+export let verifyBookingAppointmentStart = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await verifyBookingAppointment(data);
+      if (result && result.errCode === 0) {
+        dispatch(verifyBookingAppointmentSuccess({ isVerify: true }));
+      } else {
+        dispatch(verifyBookingAppointmentFailed({ isVerify: false }));
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(verifyBookingAppointmentFailed({ isVerify: false }));
+    }
+  };
+};
+
+export let verifyBookingAppointmentSuccess = (data) => {
+  toast.success("CONFIRM BOOKING SCHEDULE SUCCESS!");
+  return {
+    type: actionTypes.VERIFY_BOOKING_APPOINTMENT_SUCCESS,
+    data: data.isVerify,
+  };
+};
+
+export let verifyBookingAppointmentFailed = (data) => {
+  toast.error("CONFIRM BOOKING SCHEDULE FAILED!");
+  return {
+    type: actionTypes.VERIFY_BOOKING_APPOINTMENT_FAILED,
+    data: data.isVerify,
   };
 };

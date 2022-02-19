@@ -63,6 +63,14 @@ let getDoctorInforWhenBooking = (doctorId) => {
     `api/get-doctor-infor-when-booking-by-id?doctorId=${doctorId}`
   );
 };
+
+let findOrCreateBookingAppointment = (data) => {
+  return axios.post("/api/find-or-create-booking-appointment", data);
+};
+
+let verifyBookingAppointment = (data) => {
+  return axios.post("/api/verify-booking-appointment", data);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -79,4 +87,6 @@ export {
   getDoctorSchedule,
   getDoctorExtraInfor,
   getDoctorInforWhenBooking,
+  findOrCreateBookingAppointment,
+  verifyBookingAppointment,
 };
