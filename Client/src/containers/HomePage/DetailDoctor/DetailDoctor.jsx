@@ -36,7 +36,18 @@ class DetailDoctor extends Component {
     let imgBase64 = "";
     let fullName = "";
     let description = "";
-    let specialtyOfDoctor = "";
+    let detailSpecialtyOfDoctor = "";
+    let specialtyName = "";
+    if (
+      detailDoctor &&
+      detailDoctor.DoctorInfor &&
+      detailDoctor.DoctorInfor.specialtyData
+    ) {
+      specialtyName =
+        this.props.language === LANGUAGES.VI
+          ? detailDoctor.DoctorInfor.specialtyData.valueVi
+          : detailDoctor.DoctorInfor.specialtyData.valueEn;
+    }
     if (detailDoctor && detailDoctor.positionData) {
       position =
         this.props.language === LANGUAGES.VI
@@ -64,7 +75,7 @@ class DetailDoctor extends Component {
       detailDoctor.Markdown &&
       detailDoctor.Markdown.contentHTML
     ) {
-      specialtyOfDoctor = detailDoctor.Markdown.contentHTML;
+      detailSpecialtyOfDoctor = detailDoctor.Markdown.contentHTML;
     }
     return (
       <>
@@ -73,9 +84,11 @@ class DetailDoctor extends Component {
           <div className="detail_doctor-menu">
             <i className="fas fa-home"></i>
             <span>/</span>
-            <a href="">Khám chuyên khoa</a>
+            <a href="">
+              <FormattedMessage id={"detail-doctor.specialty-examination"} />
+            </a>
             <span>/</span>
-            <a href="">Da liễu</a>
+            <a href="">{specialtyName}</a>
           </div>
           <div className="doctor_intro-container">
             <img src={imgBase64} alt="" className="doctor_intro-avatar" />
@@ -100,7 +113,7 @@ class DetailDoctor extends Component {
           </div>
           <div
             className="doctor_specialty"
-            dangerouslySetInnerHTML={{ __html: specialtyOfDoctor }}
+            dangerouslySetInnerHTML={{ __html: detailSpecialtyOfDoctor }}
           ></div>
         </div>
         <HomeFooter />

@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import "./DoctorExtraInfor.scss";
 import * as actions from "../../../store/actions";
 import NumberFormat from "react-number-format";
+import { getDoctorExtraInfor } from "../../../services/userService";
 
 class DoctorExtraInfor extends Component {
   constructor(props) {
@@ -14,30 +15,34 @@ class DoctorExtraInfor extends Component {
       isShowDetailPrice: false,
       doctorId: this.props.doctorId,
       doctorExtraInfor: {},
-      clinicName: "",
-      clinicAddress: "",
-      note: "",
-      price: "",
     };
   }
 
-  componentDidMount() {
-    this.props.fetchDoctorExtraInforRedux(this.state.doctorId);
-  }
-  componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.doctorExtraInforRedux !== this.props.doctorExtraInforRedux) {
-      this.setState({
-        doctorExtraInfor: this.props.doctorExtraInforRedux,
-      });
+  componentDidMount = async () => {
+    try {
+      let result = await getDoctorExtraInfor(this.state.doctorId);
+      if (result && result.errCode === 0) {
+        this.setState({
+          doctorExtraInfor: result.data,
+        });
+      } else {
+        console.log("ERR from component DoctorExtraInfor:", result.errMessage);
+        this.setState({
+          doctorExtraInfor: {},
+        });
+      }
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
+  componentDidUpdate(prevProps, prevState, snapShot) {}
   handleShowHidePrice = () => {
     this.setState({
       isShowDetailPrice: !this.state.isShowDetailPrice,
     });
   };
   render() {
-    // console.log("check state doctorExtraInfor: ", this.state);
+    console.log("check state doctorExtraInfor: ", this.state);
     let { doctorExtraInfor } = this.state;
     return (
       <>
@@ -153,7 +158,6 @@ class DoctorExtraInfor extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    doctorExtraInforRedux: state.admin.doctorExtraInfor,
   };
 };
 
@@ -161,8 +165,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeLanguageAppRedux: (language) =>
       dispatch(actions.changeLanguageApp(language)),
-    fetchDoctorExtraInforRedux: (doctorId) =>
-      dispatch(actions.fetchDoctorExtraInforStart(doctorId)),
   };
 };
 

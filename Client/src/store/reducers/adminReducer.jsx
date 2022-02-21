@@ -9,6 +9,8 @@ const initialState = {
   price: [],
   province: [],
   paymentMethod: [],
+  specialty: [],
+  specialtyData: {},
   isLoadingGender: false,
   isLoadingPosition: false,
   isLoadingRole: false,
@@ -20,6 +22,7 @@ const initialState = {
   doctorExtraInfor: {},
   doctorInforWhenBooking: {},
   isVerifyBookingAppointment: "",
+  arrDoctorGetBySpecialty: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -181,6 +184,15 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case actionTypes.FETCH_SPECIALTY_SUCCESS:
+      state.specialty = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_SPECIALTY_FAILED:
+      return {
+        ...state,
+      };
     case actionTypes.FETCH_DOCTOR_EXTRA_INFOR_SUCCESS:
       state.doctorExtraInfor = action.data;
       return {
@@ -209,6 +221,25 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case actionTypes.GET_SPECIALTY_SUCCESS:
+      state.specialtyData = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.GET_SPECIALTY_FAILED:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_DOCTOR_BY_SPECIALTY_SUCCESS:
+      state.arrDoctorGetBySpecialty = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.GET_DOCTOR_BY_SPECIALTY_FAILED:
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

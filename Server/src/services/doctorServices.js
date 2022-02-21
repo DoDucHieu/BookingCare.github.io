@@ -96,6 +96,7 @@ let editOrCreateDetailDoctor = async (data) => {
         priceId: data.priceId,
         provinceId: data.provinceId,
         paymentId: data.paymentId,
+        specialtyId: data.specialtyId,
         nameClinic: data.nameClinic,
         addressClinic: data.addressClinic,
         note: data.note,
@@ -105,6 +106,7 @@ let editOrCreateDetailDoctor = async (data) => {
       checkExistsDoctorInfor.priceId = data.priceId;
       checkExistsDoctorInfor.provinceId = data.provinceId;
       checkExistsDoctorInfor.paymentId = data.paymentId;
+      checkExistsDoctorInfor.specialtyId = data.specialtyId;
       checkExistsDoctorInfor.nameClinic = data.nameClinic;
       checkExistsDoctorInfor.addressClinic = data.addressClinic;
       checkExistsDoctorInfor.note = data.note;
@@ -140,6 +142,7 @@ let getDetailDoctor = async (doctorId) => {
           model: db.DoctorInfor,
           attributes: [
             "provinceId",
+            "specialtyId",
             "priceId",
             "paymentId",
             "nameClinic",
@@ -160,6 +163,11 @@ let getDetailDoctor = async (doctorId) => {
             {
               model: db.Allcode,
               as: "paymentData",
+              attributes: ["valueEn", "valueVi", "keyMap"],
+            },
+            {
+              model: db.Allcode,
+              as: "specialtyData",
               attributes: ["valueEn", "valueVi", "keyMap"],
             },
           ],
@@ -260,7 +268,7 @@ let getDoctorScheduleByDate = async (data) => {
     } else {
       return {
         errCode: 2,
-        errMessage: "error from sever!",
+        errMessage: "this schedule is not exists!",
         data: {},
       };
     }

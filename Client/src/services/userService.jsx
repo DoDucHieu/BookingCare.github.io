@@ -1,4 +1,5 @@
 import axios from "../axios";
+import Specialty from "../containers/HomePage/Section/Specialty";
 
 let handleLogin = (email, password) => {
   return axios.post("/api/login", { email, password });
@@ -71,6 +72,26 @@ let findOrCreateBookingAppointment = (data) => {
 let verifyBookingAppointment = (data) => {
   return axios.post("/api/verify-booking-appointment", data);
 };
+
+let createDetailSpecialty = (data) => {
+  return axios.post("/api/create-detail-specialty", data);
+};
+
+let getSpecialty = (specialtyId) => {
+  return axios.get(`/api/get-specialty?specialtyId=${specialtyId}`);
+};
+
+let editSpecialty = (data) => {
+  return axios.post("/api/edit-specialty", data);
+};
+
+let getDoctorBySpecialty = (specialtyId) => {
+  return axios.get(`/api/get-doctor-by-specialty?specialtyId=${specialtyId}`);
+};
+
+let getDoctorShowOnSpecialty = (doctorId) => {
+  return axios.get(`/api/get-doctor-show-on-specialty?doctorId=${doctorId}`);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -89,4 +110,9 @@ export {
   getDoctorInforWhenBooking,
   findOrCreateBookingAppointment,
   verifyBookingAppointment,
+  createDetailSpecialty,
+  getSpecialty,
+  editSpecialty,
+  getDoctorBySpecialty,
+  getDoctorShowOnSpecialty,
 };

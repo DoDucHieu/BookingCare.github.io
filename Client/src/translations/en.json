@@ -35,7 +35,7 @@
             "clinic":"Clinic",
                 "manage-clinic":"Add new clinic",
             "specialty":"Specialy",
-                "manage-specialty":"Add new specialty",
+                "manage-specialty":"Manage specialty",
             "handbook":"Handbook",
                 "manage-handbook":"Manage handbook"
             
@@ -79,7 +79,11 @@
         "select-province":"Select province:",
         "select-price":"Select price:",
         "payment-method":"Payment method:",
+        "select-specialty":"Select specialty",
         "note":"Note:"
+    },
+    "detail-doctor":{
+        "specialty-examination":"Specialty examination"
     },
     "doctor-schedule":{
         "today":"Today",
@@ -106,6 +110,16 @@
     "doctor-infor-when-booking":{
         "time":"Time:",
         "price":"Price:"
+    },
+
+    "manage-specialty":{
+        "title":"Manage specialty",
+        "select-specialty":"Select specialty",
+        "select-img":"Select image",
+        "upload-img":"Upload image",
+        "create":"Create",
+        "edit":"Save change"
     }
+
 
 }

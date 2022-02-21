@@ -9,6 +9,7 @@ import moment from "moment";
 import localization from "moment/locale/vi";
 import { dateFormat } from "../../../utils";
 import BookingScheduleModal from "./BookingScheduleModal";
+import { getDoctorSchedule } from "../../../services/userService";
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
@@ -22,24 +23,33 @@ class DoctorSchedule extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getDoctorScheduleRedux(
-      this.state.doctorId,
-      this.state.dateSelected
-    );
+  componentDidMount = async () => {
+    try {
+      let result = await getDoctorSchedule(
+        this.state.doctorId,
+        this.state.dateSelected
+      );
+      if (result && result.errCode === 0) {
+        this.setState({
+          doctorSchedule: result.data,
+        });
+      } else {
+        console.log("ERR from component DoctorSchedule:", result.errMessage);
+        this.setState({
+          doctorSchedule: [],
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
     this.setState({
       arrDate: this.formattedDate(),
     });
-  }
+  };
   componentDidUpdate(prevProps, prevState, snapShot) {
     if (prevProps.language !== this.props.language) {
       this.setState({
         arrDate: this.formattedDate(),
-      });
-    }
-    if (prevProps.doctorScheduleRedux !== this.props.doctorScheduleRedux) {
-      this.setState({
-        doctorSchedule: this.props.doctorScheduleRedux,
       });
     }
   }
@@ -51,7 +61,6 @@ class DoctorSchedule extends Component {
         this.props.language === LANGUAGES.VI
           ? moment(new Date()).add(i, "day").format("ddd - DD/MM")
           : moment(new Date()).add(i, "day").locale("en").format("ddd - MM/DD");
-      //   obj.value = moment(new Date()).add(i, "day").startOf("day").valueOf();
       obj.value = moment(new Date())
         .add(i, "day")
         .format(dateFormat.DATE_FORMAT);
@@ -59,18 +68,27 @@ class DoctorSchedule extends Component {
     }
     return arrDate;
   };
-  handleChangeDateSelect = (event) => {
-    this.setState(
-      {
-        dateSelected: event.target.value,
-      },
-      async () => {
-        await this.props.getDoctorScheduleRedux(
-          this.state.doctorId,
-          this.state.dateSelected
-        );
+  handleChangeDateSelect = async (event) => {
+    try {
+      let result = await getDoctorSchedule(
+        this.state.doctorId,
+        event.target.value
+      );
+      if (result && result.errCode === 0) {
+        this.setState({
+          doctorSchedule: result.data,
+          dateSelected: event.target.value,
+        });
+      } else {
+        console.log("ERR from component DoctorSchedule:", result.errMessage);
+        this.setState({
+          doctorSchedule: [],
+          dateSelected: event.target.value,
+        });
       }
-    );
+    } catch (e) {
+      console.log(e);
+    }
   };
   handleOnlickBookingSchedule = (item) => {
     this.setState({
@@ -79,6 +97,7 @@ class DoctorSchedule extends Component {
     });
   };
   render() {
+    console.log("check state:", this.state);
     let { arrDate } = this.state;
     return (
       <>
@@ -166,7 +185,6 @@ class DoctorSchedule extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    doctorScheduleRedux: state.admin.doctorSchedule,
   };
 };
 
@@ -174,8 +192,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeLanguageAppRedux: (language) =>
       dispatch(actions.changeLanguageApp(language)),
-    getDoctorScheduleRedux: (doctorId, dateSelected) =>
-      dispatch(actions.getDoctorScheduleStart(doctorId, dateSelected)),
   };
 };
 

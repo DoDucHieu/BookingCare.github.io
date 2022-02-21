@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import "./Specialty.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../../utils";
-import { changeLanguageApp } from "../../../store/actions";
-
+import * as actions from "../../../store/actions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { history } from "../../../redux";
+import { withRouter } from "react-router";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -31,10 +32,29 @@ function SamplePrevArrow(props) {
   );
 }
 class Specialty extends Component {
-  changeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrSpecialty: [],
+    };
+  }
+  componentDidMount = () => {
+    this.props.getAllSpecialtyRedux("ALL");
+  };
+  componentDidUpdate = (prevProps, prevState, snapShot) => {
+    if (prevProps.specialtyDataRedux !== this.props.specialtyDataRedux) {
+      this.setState({
+        arrSpecialty: this.props.specialtyDataRedux,
+      });
+    }
+  };
+  handleGetDetailSpecialty = (item) => {
+    // console.log("check item: ", item);
+    this.props.history.push(`/detail-specialty-${item.specialtyId}`);
   };
   render() {
+    console.log("check state specialty:", this.state);
+    let { arrSpecialty } = this.state;
     let settings = {
       dots: false,
       infinite: true,
@@ -54,62 +74,30 @@ class Specialty extends Component {
         <div className="popularSpecialty-body">
           <div className="container">
             <Slider {...settings}>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/13/120331-co-xuong-khop.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Cơ xương khớp</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/13/121146-tai-mui-hong.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Tai mũi họng</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/13/121215-cot-song.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Cột sống</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/13/121042-than-kinh.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Thần kinh</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/16/181619-sieu-am-thai.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Siêu âm thai</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/16/181822-san-phu-khoa.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Sản phụ khoa</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/16/175620-nhi-khoa.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Nhi khoa</p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w300/2019/12/16/182050-nha-khoa.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">Nha khoa</p>
-              </div>
+              {arrSpecialty &&
+                arrSpecialty.length > 0 &&
+                arrSpecialty.map((item, index) => {
+                  let imgBase64 = new Buffer(item.image, "base64").toString(
+                    "binary"
+                  );
+                  return (
+                    <div
+                      className="popularSpecial-item"
+                      key={index}
+                      onClick={() => this.handleGetDetailSpecialty(item)}
+                    >
+                      <img
+                        src={imgBase64}
+                        className="popularSpecialty-body-img"
+                      ></img>
+                      <p className="popularSpecialty-body-text">
+                        {this.props.language === LANGUAGES.EN
+                          ? item.specialtyName.valueEn
+                          : item.specialtyName.valueVi}
+                      </p>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -122,13 +110,19 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    specialtyDataRedux: state.admin.specialtyData,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
+    changeLanguageAppRedux: (language) =>
+      dispatch(actions.changeLanguageApp(language)),
+    getAllSpecialtyRedux: (specialtyId) =>
+      dispatch(actions.getSpecialtyStart(specialtyId)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Specialty)
+);

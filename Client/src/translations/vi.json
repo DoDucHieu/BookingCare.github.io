@@ -38,7 +38,7 @@
             "manage-clinic":"Thêm phòng khám",
 
             "specialty":"Chuyên khoa",
-            "manage-specialty":"Thêm chuyên khoa",
+            "manage-specialty":"Quản lí chuyên khoa",
 
             "handbook":"Cẩm nang",
             "manage-handbook":"Quản lí cẩm nang"
@@ -82,7 +82,11 @@
         "select-province":"Chọn tỉnh thành:",
         "select-price":"Chọn giá khám:",
         "payment-method":"Phương thức thanh toán:",
+        "select-specialty":"Chọn chuyên khoa",
         "note":"Ghi chú:"
+    },
+    "detail-doctor":{
+        "specialty-examination":"Khám chuyên khoa"
     },
     "doctor-schedule":{
         "today":"Hôm nay",
@@ -109,6 +113,15 @@
     "doctor-infor-when-booking":{
         "time":"Thời gian:",
         "price":"Giá khám:"
+    },
+
+    "manage-specialty":{
+        "title":"Quản lí chuyên khoa",
+        "select-specialty":"Chuyên khoa",
+        "select-img":"Chọn ảnh",
+        "upload-img":"Tải ảnh lên",
+        "create":"Tạo",
+        "edit":"Lưu thay đổi"
     }
 
 }

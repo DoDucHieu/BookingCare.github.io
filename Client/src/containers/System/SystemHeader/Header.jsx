@@ -32,10 +32,10 @@ class Header extends Component {
     this.setState(
       {
         menuApp: menu,
-      },
-      () => {
-        console.log("check state system header: ", userInfo.roleId);
       }
+      // () => {
+      //   console.log("check state system header: ", userInfo.roleId);
+      // }
     );
   }
   changeLanguage = (language) => {

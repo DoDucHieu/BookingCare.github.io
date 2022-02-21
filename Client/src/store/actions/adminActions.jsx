@@ -11,11 +11,13 @@ import {
   editOrCreateDetailDoctor,
   getDetailDoctor,
   createBulkDoctorSchedule,
-  getDoctorSchedule,
-  getDoctorExtraInfor,
   getDoctorInforWhenBooking,
   findOrCreateBookingAppointment,
   verifyBookingAppointment,
+  createDetailSpecialty,
+  getSpecialty,
+  editSpecialty,
+  getDoctorBySpecialty,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 
@@ -388,33 +390,6 @@ export let createBulkDoctorScheduleFailed = () => {
   };
 };
 
-export let getDoctorScheduleStart = (doctorId, dateSelected) => {
-  return async (dispatch, getState) => {
-    try {
-      let result = await getDoctorSchedule(doctorId, dateSelected);
-      if (result) {
-        dispatch(getDoctorScheduleSuccess(result.data));
-      } else {
-        dispatch(getDoctorScheduleFailed());
-      }
-    } catch (e) {
-      console.log(e);
-      dispatch(getDoctorScheduleFailed());
-    }
-  };
-};
-export let getDoctorScheduleSuccess = (data) => {
-  return {
-    type: actionTypes.FETCH_DOCTOR_SCHEDUlE_SUCCESS,
-    data: data,
-  };
-};
-export let getDoctorScheduleFailed = (data) => {
-  return {
-    type: actionTypes.FETCH_DOCTOR_SCHEDUlE_FAILED,
-  };
-};
-
 export let fetchProvinceStart = () => {
   return async (dispatch, getState) => {
     try {
@@ -496,32 +471,30 @@ export let fetchPaymentMethodFailed = () => {
   };
 };
 
-export let fetchDoctorExtraInforStart = (doctorId) => {
+export let fetchSpecialtyStart = () => {
   return async (dispatch, getState) => {
     try {
-      let result = await getDoctorExtraInfor(doctorId);
+      let result = await getAllCode("SPECIALTY");
       if (result && result.errCode === 0) {
-        dispatch(fetchDoctorExtraInforSuccess(result.data));
+        dispatch(fetchSpecialtySuccess(result.data));
       } else {
-        dispatch(fetchDoctorExtraInforFailed());
+        dispatch(fetchSpecialtyFailed());
       }
     } catch (e) {
       console.log(e);
-      dispatch(fetchDoctorExtraInforFailed());
+      dispatch(fetchSpecialtyFailed());
     }
   };
 };
-
-export let fetchDoctorExtraInforSuccess = (data) => {
+export let fetchSpecialtySuccess = (data) => {
   return {
-    type: actionTypes.FETCH_DOCTOR_EXTRA_INFOR_SUCCESS,
+    type: actionTypes.FETCH_SPECIALTY_SUCCESS,
     data: data,
   };
 };
-
-export let fetchDoctorExtraInforFailed = () => {
+export let fetchSpecialtyFailed = () => {
   return {
-    type: actionTypes.FETCH_DOCTOR_EXTRA_INFOR_FAILED,
+    type: actionTypes.FETCH_SPECIALTY_FAILED,
   };
 };
 
@@ -612,5 +585,125 @@ export let verifyBookingAppointmentFailed = (data) => {
   return {
     type: actionTypes.VERIFY_BOOKING_APPOINTMENT_FAILED,
     data: data.isVerify,
+  };
+};
+
+export let createDetailSpecialtyStart = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await createDetailSpecialty(data);
+      if (result && result.errCode === 0) {
+        dispatch(createDetailSpecialtySuccess());
+      } else {
+        dispatch(createDetailSpecialtyFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(createDetailSpecialtyFailed());
+    }
+  };
+};
+
+export let createDetailSpecialtySuccess = () => {
+  toast.success("CREATE DETAIL SPECIALTY SUCCESS!");
+  return {
+    type: actionTypes.CREATE_DETAIL_SPECIALTY_SUCCESS,
+  };
+};
+
+export let createDetailSpecialtyFailed = () => {
+  toast.error("CREATE DETAIL SPECIALTY FAILED!");
+
+  return {
+    type: actionTypes.CREATE_DETAIL_SPECIALTY_FAILED,
+  };
+};
+
+export let getSpecialtyStart = (specialtyId) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getSpecialty(specialtyId);
+      if (result && result.errCode === 0) {
+        dispatch(getSpecialtySuccess(result.data));
+      } else {
+        dispatch(getSpecialtyFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(getSpecialtyFailed());
+    }
+  };
+};
+
+export let getSpecialtySuccess = (data) => {
+  return {
+    type: actionTypes.GET_SPECIALTY_SUCCESS,
+    data: data,
+  };
+};
+
+export let getSpecialtyFailed = () => {
+  return {
+    type: actionTypes.GET_SPECIALTY_SUCCESS,
+  };
+};
+
+export let editSpecialtyStart = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await editSpecialty(data);
+      if (result && result.errCode === 0) {
+        dispatch(editSpecialtySuccess());
+      } else {
+        dispatch(editSpecialtyFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(editSpecialtyFailed());
+    }
+  };
+};
+
+export let editSpecialtySuccess = () => {
+  toast.success("EDIT SPECIALTY SUCCESS!");
+  return {
+    type: actionTypes.EDIT_SPECIALTY_SUCCESS,
+  };
+};
+
+export let editSpecialtyFailed = () => {
+  toast.error("EDIT SPECIALTY FAILED!");
+
+  return {
+    type: actionTypes.EDIT_SPECIALTY_FAILED,
+  };
+};
+
+export let getDoctorBySpecialtyStart = (specialtyId) => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getDoctorBySpecialty(specialtyId);
+      if (result && result.errCode === 0) {
+        dispatch(getDoctorBySpecialtySuccess(result.data));
+      } else {
+        dispatch(getDoctorBySpecialtyFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(getDoctorBySpecialtyFailed());
+    }
+  };
+};
+
+export let getDoctorBySpecialtySuccess = (data) => {
+  return {
+    type: actionTypes.GET_DOCTOR_BY_SPECIALTY_SUCCESS,
+    data: data,
+  };
+};
+
+export let getDoctorBySpecialtyFailed = (data) => {
+  return {
+    type: actionTypes.GET_DOCTOR_BY_SPECIALTY_FAILED,
   };
 };

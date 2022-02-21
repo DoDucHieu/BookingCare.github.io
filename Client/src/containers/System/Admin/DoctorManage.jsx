@@ -29,12 +29,14 @@ class DoctorManage extends Component {
       arrProvince: [],
       arrPrice: [],
       arrPaymentMethod: [],
+      arrSpecialty: [],
       clinicAddress: "",
       clinicName: "",
       note: "",
       provinceSelected: "",
       priceSelected: "",
       paymentMethodSelected: "",
+      specialtySelected: "",
     };
   }
 
@@ -43,6 +45,7 @@ class DoctorManage extends Component {
     this.props.fetchProvinceRedux();
     this.props.fetchPriceRedux();
     this.props.fetchPaymentMethodRedux();
+    this.props.fetchSpecialtyRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
     if (prevProps.allDoctorRedux !== this.props.allDoctorRedux) {
@@ -97,6 +100,14 @@ class DoctorManage extends Component {
         ),
       });
     }
+    if (prevProps.specialtyRedux !== this.props.specialtyRedux) {
+      this.setState({
+        arrSpecialty: this.handleFormatLabelValueOfReactSelect(
+          this.props.specialtyRedux,
+          ""
+        ),
+      });
+    }
     if (prevProps.detailDoctorRedux !== this.props.detailDoctorRedux) {
       let detailDoctor = this.handleFormatDetailDoctor(
         this.props.detailDoctorRedux
@@ -141,6 +152,7 @@ class DoctorManage extends Component {
     let selectOptionProvince = {};
     let selectOptionPrice = {};
     let selectOptionPayment = {};
+    let selectOptionSpecialty = {};
 
     selectOptionProvince.label =
       this.props.language === LANGUAGES.VI
@@ -160,6 +172,12 @@ class DoctorManage extends Component {
         : detailDoctor.DoctorInfor.paymentData.valueEn;
     selectOptionPayment.value = detailDoctor.DoctorInfor.paymentData.keyMap;
 
+    selectOptionSpecialty.label =
+      this.props.language === LANGUAGES.VI
+        ? detailDoctor.DoctorInfor.specialtyData.valueVi
+        : detailDoctor.DoctorInfor.specialtyData.valueEn;
+    selectOptionProvince.value = detailDoctor.DoctorInfor.provinceData.keyMap;
+
     obj.contentHTML = detailDoctor.Markdown.contentHTML
       ? detailDoctor.Markdown.contentHTML
       : "";
@@ -172,6 +190,8 @@ class DoctorManage extends Component {
     obj.provinceSelected = selectOptionProvince;
     obj.priceSelected = selectOptionPrice;
     obj.paymentMethodSelected = selectOptionPayment;
+    obj.specialtySelected = selectOptionSpecialty;
+
     obj.clinicName = detailDoctor.DoctorInfor.nameClinic
       ? detailDoctor.DoctorInfor.nameClinic
       : "";
@@ -188,6 +208,7 @@ class DoctorManage extends Component {
       detailDoctor.DoctorInfor.provinceId ||
       detailDoctor.DoctorInfor.priceId ||
       detailDoctor.DoctorInfor.paymentId ||
+      detailDoctor.DoctorInfor.specialtyId ||
       detailDoctor.DoctorInfor.nameClinic ||
       detailDoctor.DoctorInfor.addressClinic ||
       detailDoctor.DoctorInfor.note
@@ -240,6 +261,7 @@ class DoctorManage extends Component {
       priceId: this.state.priceSelected.value,
       provinceId: this.state.provinceSelected.value,
       paymentId: this.state.paymentMethodSelected.value,
+      specialtyId: this.state.specialtySelected.value,
       nameClinic: this.state.clinicName,
       addressClinic: this.state.clinicAddress,
       note: this.state.note,
@@ -252,6 +274,7 @@ class DoctorManage extends Component {
       priceSelected: "",
       provinceSelected: "",
       paymentMethodSelected: "",
+      specialtySelected: "",
       clinicName: "",
       clinicAddress: "",
       note: "",
@@ -277,12 +300,25 @@ class DoctorManage extends Component {
             options={this.state.arrDoctor}
             name={"selectedDoctor"}
           />
+
+          <div className="form-group col-4 mt-3">
+            <label>
+              <FormattedMessage id="manage-doctor.select-specialty" />
+            </label>
+            <Select
+              className="reactSelect"
+              value={this.state.specialtySelected}
+              onChange={this.handleChangeSelect}
+              options={this.state.arrSpecialty}
+              name={"specialtySelected"}
+            />
+          </div>
         </div>
-        <div className="description">
-          <span>
+        <div className="description form-group mt-3">
+          <label>
             {" "}
             <FormattedMessage id={"manage-doctor.description"} />
-          </span>
+          </label>
           <textarea
             name=""
             id=""
@@ -378,7 +414,7 @@ class DoctorManage extends Component {
         </div>
         <MdEditor
           className="markdown"
-          style={{ height: "500px" }}
+          style={{ height: "300px" }}
           renderHTML={(text) => mdParser.render(text)}
           onChange={this.handleEditorChange.bind(this)}
           value={this.state.contentMarkdown}
@@ -406,6 +442,7 @@ const mapStateToProps = (state) => {
     provinceRedux: state.admin.province,
     priceRedux: state.admin.price,
     paymentMethodRedux: state.admin.paymentMethod,
+    specialtyRedux: state.admin.specialty,
   };
 };
 
@@ -418,6 +455,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchProvinceRedux: () => dispatch(actions.fetchProvinceStart()),
     fetchPriceRedux: () => dispatch(actions.fetchPriceStart()),
     fetchPaymentMethodRedux: () => dispatch(actions.fetchPaymentMethodStart()),
+    fetchSpecialtyRedux: () => dispatch(actions.fetchSpecialtyStart()),
   };
 };
 

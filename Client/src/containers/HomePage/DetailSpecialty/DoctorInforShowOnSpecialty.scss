@@ -1,0 +1,22 @@
+.doctorInfor_showOnSpecialty{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .doctor-detail {
+      width: 80%;
+      margin-left: 8px;
+      padding: 0px 8px;
+      b {
+        font-size: 16px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+  }

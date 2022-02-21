@@ -10,6 +10,7 @@ import {
   userIsNotAuthenticated,
 } from "../hoc/authentication";
 import DetailDoctor from "./HomePage/DetailDoctor/DetailDoctor";
+import DetailSpecialty from "./HomePage/DetailSpecialty/DetailSpecialty";
 import { path } from "../utils";
 import Home from "../routes/System/Home";
 // import Login from '../routes/Login';
@@ -66,6 +67,10 @@ class App extends Component {
                   <Route
                     path={path.VERIFY_BOOKING_SCHEDULE}
                     component={VerifyBookingSchedule}
+                  />
+                  <Route
+                    path={path.DETAIL_SPECIALTY}
+                    component={DetailSpecialty}
                   />
                 </Switch>
               </CustomScrollbars>

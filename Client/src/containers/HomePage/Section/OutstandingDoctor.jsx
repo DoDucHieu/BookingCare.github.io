@@ -4,7 +4,6 @@ import "./Specialty.scss";
 import "./OutstandingDoctor.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES, path } from "../../../utils";
-import DetailDoctor from "../DetailDoctor/DetailDoctor";
 import {
   Redirect,
   Route,
@@ -43,7 +42,6 @@ class OutstandingDoctor extends Component {
     super(props);
     this.state = {
       topDoctorArr: [],
-      redirect: false,
     };
   }
   changeLanguage = (language) => {

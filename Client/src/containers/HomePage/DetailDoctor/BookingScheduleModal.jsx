@@ -98,6 +98,7 @@ class BookingScheduleModal extends Component {
     data.language = this.props.language;
     console.log("check data from booking schedule modal to server: ", data);
     await this.props.findOrCreateBookingAppointmentRedux(data);
+    this.props.handleShowHideModal();
   };
   render() {
     console.log("check state from bookingScheduleModal: ", this.state);
