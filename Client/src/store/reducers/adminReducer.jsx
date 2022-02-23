@@ -10,6 +10,7 @@ const initialState = {
   province: [],
   paymentMethod: [],
   specialty: [],
+  clinic: [],
   specialtyData: {},
   isLoadingGender: false,
   isLoadingPosition: false,
@@ -190,6 +191,16 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.FETCH_SPECIALTY_FAILED:
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_CLINIC_SUCCESS:
+      state.clinic = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_CLINIC_FAILED:
       return {
         ...state,
       };

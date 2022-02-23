@@ -11,6 +11,7 @@ import {
 } from "../hoc/authentication";
 import DetailDoctor from "./HomePage/DetailDoctor/DetailDoctor";
 import DetailSpecialty from "./HomePage/DetailSpecialty/DetailSpecialty";
+import DetailMedicalFacility from "./HomePage/DetailMedicalFacility/DetailMedicalFacility";
 import { path } from "../utils";
 import Home from "../routes/System/Home";
 // import Login from '../routes/Login';
@@ -71,6 +72,10 @@ class App extends Component {
                   <Route
                     path={path.DETAIL_SPECIALTY}
                     component={DetailSpecialty}
+                  />
+                  <Route
+                    path={path.DETAIL_MEDICAL_FACILITY}
+                    component={DetailMedicalFacility}
                   />
                 </Switch>
               </CustomScrollbars>

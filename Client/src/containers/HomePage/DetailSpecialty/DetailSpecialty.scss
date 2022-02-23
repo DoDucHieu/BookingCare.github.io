@@ -17,7 +17,12 @@
         background-color: rgb(213, 240, 255);
 
         .select-province{
-            width: 300px;
+            width: 200px;
+            label{
+                margin-bottom: 2px;
+                font-size: 14px;
+                font-weight: 600;
+            }
         }
         .detail_specialty-content{
             width: 100%;
@@ -29,12 +34,11 @@
                 border: 1px solid gray;
                 background-color: #fff;
                 .specialty_content-left{
-                    padding-top: 8px;
-                    padding-left: 12px;
+                    padding: 8px;
                     width: 50%;
                 }
                 .specialty_content-right{
-                    padding-left: 12px;
+                    padding: 8px;
                     width: 50%;
                     border-left: 1px solid rgb(196, 196, 196);
                 }

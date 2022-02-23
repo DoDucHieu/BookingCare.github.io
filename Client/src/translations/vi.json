@@ -25,7 +25,14 @@
         "dental-examination-top":"Khám",
         "dental-examination-bot":"nha khoa"
     },
-
+    "section":{
+        "outstanding-medical-facility":"Cơ sở y tế nổi bật",
+        "outstanding-doctor":"Bác sỹ nổi bật",
+        "outstanding-specialty":"Chuyên khoa phổ biến",
+        "hand-book":"Cẩm nang",
+        "all-hand-book":"TẤT CẢ BÀI VIẾT",
+        "search":"TÌM KIẾM"
+    },
     "menu": {
         "admin": {
             "manage": "Quản lý",
@@ -35,7 +42,7 @@
             "manage-redux":"Quản lý với Redux",
 
             "clinic":"Phòng khám",
-            "manage-clinic":"Thêm phòng khám",
+            "manage-clinic":"Quản phòng khám",
 
             "specialty":"Chuyên khoa",
             "manage-specialty":"Quản lí chuyên khoa",
@@ -122,6 +129,21 @@
         "upload-img":"Tải ảnh lên",
         "create":"Tạo",
         "edit":"Lưu thay đổi"
+    },
+    "detail-specialty":{
+        "select-province":"Chọn tỉnh thành:"
+    },
+
+    "manage-clinic":{
+        "title":"Quản lí phòng khám",
+        "select-clinic":"Phòng khám",
+        "select-img":"Chọn ảnh",
+        "upload-img":"Tải ảnh lên",
+        "create":"Tạo",
+        "edit":"Lưu thay đổi"
+    },
+    "detail-clinic":{
+        "select-specialty":"Chọn chuyên khoa:"
     }
 
 }

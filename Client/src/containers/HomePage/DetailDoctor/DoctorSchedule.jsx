@@ -16,7 +16,6 @@ class DoctorSchedule extends Component {
     this.state = {
       arrDate: [],
       dateSelected: moment(new Date()).format(dateFormat.DATE_FORMAT),
-      doctorId: this.props.doctorId,
       doctorSchedule: [],
       isOpenBookingScheduleModal: false,
       dataToDoctorScheduleModal: {},
@@ -26,12 +25,13 @@ class DoctorSchedule extends Component {
   componentDidMount = async () => {
     try {
       let result = await getDoctorSchedule(
-        this.state.doctorId,
+        this.props.doctorId,
         this.state.dateSelected
       );
       if (result && result.errCode === 0) {
         this.setState({
           doctorSchedule: result.data,
+          dateSelected: moment(new Date()).format(dateFormat.DATE_FORMAT),
         });
       } else {
         console.log("ERR from component DoctorSchedule:", result.errMessage);
@@ -46,13 +46,34 @@ class DoctorSchedule extends Component {
       arrDate: this.formattedDate(),
     });
   };
-  componentDidUpdate(prevProps, prevState, snapShot) {
+  componentDidUpdate = async (prevProps, prevState, snapShot) => {
     if (prevProps.language !== this.props.language) {
       this.setState({
         arrDate: this.formattedDate(),
       });
     }
-  }
+    // if (prevProps.doctorId !== this.props.doctorId) {
+    //   try {
+    //     let result = await getDoctorSchedule(
+    //       this.props.doctorId,
+    //       this.state.dateSelected
+    //     );
+    //     if (result && result.errCode === 0) {
+    //       this.setState({
+    //         doctorSchedule: result.data,
+    //         dateSelected: moment(new Date()).format(dateFormat.DATE_FORMAT),
+    //       });
+    //     } else {
+    //       console.log("ERR from component DoctorSchedule:", result.errMessage);
+    //       this.setState({
+    //         doctorSchedule: [],
+    //       });
+    //     }
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
+  };
   formattedDate = () => {
     let arrDate = [];
     for (let i = 0; i < 7; i++) {
@@ -71,7 +92,7 @@ class DoctorSchedule extends Component {
   handleChangeDateSelect = async (event) => {
     try {
       let result = await getDoctorSchedule(
-        this.state.doctorId,
+        this.props.doctorId,
         event.target.value
       );
       if (result && result.errCode === 0) {
@@ -97,7 +118,7 @@ class DoctorSchedule extends Component {
     });
   };
   render() {
-    console.log("check state:", this.state);
+    console.log("check state:", this.state.dateSelected);
     let { arrDate } = this.state;
     return (
       <>

@@ -9,7 +9,7 @@ import * as actions from "../../../store/actions";
 import HomeFooter from "../HomeFooter/HomeFooter";
 import DoctorSchedule from "./DoctorSchedule";
 import DoctorExtraInfor from "./DoctorExtraInfor";
-
+import { getDetailDoctor } from "../../../services/userService";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -18,16 +18,24 @@ class DetailDoctor extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getDetailDoctorRedux(this.props.match.params.id);
-  }
-  componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.detailDoctorRedux !== this.props.detailDoctorRedux) {
-      this.setState({
-        detailDoctor: this.props.detailDoctorRedux,
-      });
+  componentDidMount = async () => {
+    try {
+      let result = await getDetailDoctor(this.props.match.params.id);
+      if (result && result.errCode === 0) {
+        this.setState({
+          detailDoctor: result.data,
+        });
+      } else {
+        console.log("Err from DetailDoctor:", result.errMessage);
+      }
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
+  componentDidUpdate(prevProps, prevState, snapShot) {}
+  handleOnclickRedirectToDetailSpecialty = (specialtyId) => {
+    this.props.history.push(`/detail-specialty-${specialtyId}`);
+  };
 
   render() {
     // console.log(this.props.match.params.id);
@@ -38,6 +46,7 @@ class DetailDoctor extends Component {
     let description = "";
     let detailSpecialtyOfDoctor = "";
     let specialtyName = "";
+    let specialtyId = "";
     if (
       detailDoctor &&
       detailDoctor.DoctorInfor &&
@@ -47,6 +56,7 @@ class DetailDoctor extends Component {
         this.props.language === LANGUAGES.VI
           ? detailDoctor.DoctorInfor.specialtyData.valueVi
           : detailDoctor.DoctorInfor.specialtyData.valueEn;
+      specialtyId = detailDoctor.DoctorInfor.specialtyId;
     }
     if (detailDoctor && detailDoctor.positionData) {
       position =
@@ -84,11 +94,17 @@ class DetailDoctor extends Component {
           <div className="detail_doctor-menu">
             <i className="fas fa-home"></i>
             <span>/</span>
-            <a href="">
+            <p>
               <FormattedMessage id={"detail-doctor.specialty-examination"} />
-            </a>
+            </p>
             <span>/</span>
-            <a href="">{specialtyName}</a>
+            <p
+              onClick={() =>
+                this.handleOnclickRedirectToDetailSpecialty(specialtyId)
+              }
+            >
+              {specialtyName}
+            </p>
           </div>
           <div className="doctor_intro-container">
             <img src={imgBase64} alt="" className="doctor_intro-avatar" />
@@ -130,11 +146,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    changeLanguageAppRedux: (language) =>
-      dispatch(actions.changeLanguageApp(language)),
-    getDetailDoctorRedux: (id) => dispatch(actions.getDetailDoctorStart(id)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailDoctor);

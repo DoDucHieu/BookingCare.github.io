@@ -59,7 +59,6 @@ class OutstandingDoctor extends Component {
     }
   }
   handleGetDetailDoctor = (doctor) => {
-    // console.log("check handleGetDetailDoctor: ",doctor);
     this.props.history.push(`/detail-doctor-${doctor.id}`);
   };
   render() {
@@ -78,8 +77,13 @@ class OutstandingDoctor extends Component {
     return (
       <div className="specialty outstandingDoctor">
         <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Bác sỹ nổi bật</b>
-          <button className="popularSpecialty-header-button">TÌM KIẾM</button>
+          <b className="popularSpecialty-header-text">
+            {" "}
+            <FormattedMessage id={"section.outstanding-doctor"} />
+          </b>
+          <button className="popularSpecialty-header-button">
+            <FormattedMessage id={"section.search"} />
+          </button>
         </div>
         <div className="outstandingDoctor-body">
           <div className="container">

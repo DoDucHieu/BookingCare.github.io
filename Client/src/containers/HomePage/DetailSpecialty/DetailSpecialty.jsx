@@ -19,16 +19,27 @@ class DetailDoctor extends Component {
       detailSpecialty: {},
       arrDoctorGetBySpecialty: [],
       arrProvince: [],
-      arrDoctorIdGetByProvince: [],
-      selectedProvince: "",
+      selectedProvince: {},
     };
   }
 
   componentDidMount() {
     this.props.getDetailSpecialtyRedux(this.props.match.params.specialtyId);
     this.props.getDoctorBySpecialtyRedux(this.props.match.params.specialtyId);
+    this.props.fetchProvinceRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
+    if (prevProps.language !== this.props.language) {
+      this.setState({
+        arrProvince: this.handleFormatProvinceToSelect(
+          this.props.provinceRedux
+        ),
+        selectedProvince:
+          this.props.language === LANGUAGES.VI
+            ? { label: "Toàn quốc", value: "ALL" }
+            : { label: "Nationwide", value: "ALL" },
+      });
+    }
     if (prevProps.specialtyDataRedux !== this.props.specialtyDataRedux) {
       this.setState({
         detailSpecialty: this.props.specialtyDataRedux,
@@ -45,48 +56,38 @@ class DetailDoctor extends Component {
         ),
       });
     }
+    if (prevProps.provinceRedux !== this.props.provinceRedux) {
+      this.setState({
+        arrProvince: this.handleFormatProvinceToSelect(
+          this.props.provinceRedux
+        ),
+        selectedProvince:
+          this.props.language === LANGUAGES.VI
+            ? { label: "Toàn quốc", value: "ALL" }
+            : { label: "Nationwide", value: "ALL" },
+      });
+    }
   }
   handleFormatProvinceToSelect = (data) => {
-    let arr = [];
+    let arr =
+      this.props.language === LANGUAGES.VI
+        ? [{ label: "Toàn Quốc", value: "ALL" }]
+        : [{ label: "Nationwide", value: "ALL" }];
     if (data && data.length > 0) {
       data.map((item, index) => {
         let obj = {};
-        if (index === 0) {
-          obj.label =
-            this.props.language === LANGUAGES.VI
-              ? item.provinceData.valueVi
-              : item.provinceData.valueEn;
-          obj.value = item.provinceId;
-          arr.push(obj);
-        }
-        if (index > 0 && item.provinceId !== data[index - 1].provinceId) {
-          obj.label =
-            this.props.language === LANGUAGES.VI
-              ? item.provinceData.valueVi
-              : item.provinceData.valueEn;
-          obj.value = item.provinceId;
-          arr.push(obj);
-        }
+        obj.label =
+          this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn;
+        obj.value = item.keyMap;
+        arr.push(obj);
       });
     }
     return arr;
   };
   handleChangeSelectProvince = (selectedOption) => {
     console.log(selectedOption);
-    let arr = [];
-    if (
-      this.state.arrDoctorGetBySpecialty &&
-      this.state.arrDoctorGetBySpecialty.length > 0
-    ) {
-      this.state.arrDoctorGetBySpecialty.map((item, index) => {
-        if (item.provinceId === selectedOption.value) {
-          arr.push(item.doctorId);
-        }
-      });
-    }
     this.setState({
       selectedProvince: selectedOption,
-      arrDoctorIdGetByProvince: arr,
     });
   };
 
@@ -95,6 +96,7 @@ class DetailDoctor extends Component {
     let { detailSpecialty } = this.state;
     let headerTitle;
     let description = detailSpecialty ? detailSpecialty.contentHTML : "";
+    let check = 0;
     if (this.props.language === LANGUAGES.VI) {
       headerTitle =
         detailSpecialty && detailSpecialty.specialtyName
@@ -121,6 +123,9 @@ class DetailDoctor extends Component {
           </div>
           <div className="detail_specialty-body">
             <div className="select-province">
+              <label>
+                <FormattedMessage id={"detail-specialty.select-province"} />
+              </label>
               <Select
                 className="reactSelect"
                 value={this.state.selectedProvince}
@@ -129,21 +134,57 @@ class DetailDoctor extends Component {
               />
             </div>
             <div className="detail_specialty-content">
-              {this.state.arrDoctorIdGetByProvince &&
-                this.state.arrDoctorIdGetByProvince.length > 0 &&
-                this.state.arrDoctorIdGetByProvince.map((item, index) => {
-                  return (
-                    <div className="detail_specialty-content-item" key={index}>
-                      <div className="specialty_content-left">
-                        <DoctorInforShowOnSpecialty doctorId={item} />
+              {this.state.arrDoctorGetBySpecialty &&
+                this.state.arrDoctorGetBySpecialty.length > 0 &&
+                this.state.arrDoctorGetBySpecialty.map((item, index) => {
+                  if (this.state.selectedProvince.value === "ALL") {
+                    check = 1;
+                    return (
+                      <div
+                        className="detail_specialty-content-item"
+                        key={index}
+                      >
+                        <div className="specialty_content-left">
+                          <DoctorInforShowOnSpecialty
+                            doctorId={item.doctorId}
+                          />
+                        </div>
+                        <div className="specialty_content-right">
+                          <DoctorSchedule doctorId={item.doctorId} />
+                          <DoctorExtraInfor doctorId={item.doctorId} />
+                        </div>
                       </div>
-                      <div className="specialty_content-right">
-                        <DoctorSchedule doctorId={item} key={index} />
-                        <DoctorExtraInfor doctorId={item} />
+                    );
+                  }
+                  if (
+                    item.Clinic.provinceId === this.state.selectedProvince.value
+                  ) {
+                    check = 1;
+                    return (
+                      <div
+                        className="detail_specialty-content-item"
+                        key={index}
+                      >
+                        <div className="specialty_content-left">
+                          <DoctorInforShowOnSpecialty
+                            doctorId={item.doctorId}
+                          />
+                        </div>
+                        <div className="specialty_content-right">
+                          <DoctorSchedule doctorId={item.doctorId} />
+                          <DoctorExtraInfor doctorId={item.doctorId} />
+                        </div>
                       </div>
-                    </div>
-                  );
+                    );
+                  }
                 })}
+              {check === 0 && (
+                <div>
+                  {this.props.language === LANGUAGES.VI
+                    ? "Không có bác sĩ nào"
+                    : "There are no doctors here!"}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -158,6 +199,7 @@ const mapStateToProps = (state) => {
     language: state.app.language,
     specialtyDataRedux: state.admin.specialtyData,
     arrDoctorGetBySpecialtyRedux: state.admin.arrDoctorGetBySpecialty,
+    provinceRedux: state.admin.province,
   };
 };
 
@@ -169,6 +211,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.getSpecialtyStart(specialtyId)),
     getDoctorBySpecialtyRedux: (specialtyId) =>
       dispatch(actions.getDoctorBySpecialtyStart(specialtyId)),
+    fetchProvinceRedux: () => dispatch(actions.fetchProvinceStart()),
   };
 };
 

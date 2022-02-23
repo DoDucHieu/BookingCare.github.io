@@ -182,6 +182,9 @@ let getAllCode = (typeInput) => {
     try {
       let data = await db.Allcode.findAll({
         where: { type: typeInput },
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "id"],
+        },
       });
       if (!data) {
         resolve({

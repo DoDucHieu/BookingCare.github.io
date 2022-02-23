@@ -5,10 +5,11 @@ import "./MedicalFacility.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../../utils";
 import { changeLanguageApp } from "../../../store/actions";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { withRouter } from "react-router";
+import { getAllClinic } from "../../../services/userService";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -32,11 +33,33 @@ function SamplePrevArrow(props) {
   );
 }
 class MedicalFacility extends Component {
-  changeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrClinic: [],
+    };
+  }
+  componentDidMount = async () => {
+    try {
+      let result = await getAllClinic();
+      if (result && result.errCode === 0) {
+        this.setState({
+          arrClinic: result.data,
+        });
+      } else {
+        console.log("Err: ", result.errMessage);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleOnclickRedirectToDetail = (clinicId) => {
+    this.props.history.push(`/detail-medical-facility-${clinicId}`);
   };
 
   render() {
+    console.log("check state from medical facilily: ", this.state);
     let settings = {
       dots: false,
       infinite: true,
@@ -50,84 +73,42 @@ class MedicalFacility extends Component {
     return (
       <div className="specialty medicalFacility">
         <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Cơ sở y tế nổi bật</b>
-          <button className="popularSpecialty-header-button">TÌM KIẾM</button>
+          <b className="popularSpecialty-header-text">
+            <FormattedMessage id={"section.outstanding-medical-facility"} />
+          </b>
+          <button className="popularSpecialty-header-button">
+            <FormattedMessage id={"section.search"} />
+          </button>
         </div>
         <div className="popularSpecialty-body">
           <div className="container">
             <Slider {...settings}>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2020/06/04/091726-benh-vien-bao-son1.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Bệnh viện đa khoa Bảo Sơn
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2020/06/04/090854-bv-an-viet1.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Bệnh viện đa khoa An Việt
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2018/06/25/180121phong-kham-hoang-long1.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Phòng khám đa khoa Hoàng Long
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2020/06/04/101123-bv-mat-dnd1.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Bệnh viện mắt quốc tế DND
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2021/04/11/172740-sihg.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Phòng khám đa khoa Singapore
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2021/04/16/110944-sunnycare.png"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Tư vấn tâm lý SunnyCare
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2018/06/18/163407phong-kham-meditec.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Phòng khám đa khoa Meditec
-                </p>
-              </div>
-              <div className="popularSpecial-item">
-                <img
-                  src="https://cdn.bookingcare.vn/fr/w500/2018/12/12/100821cover-phong-kham-da-khoa-quoc-te-exson.jpg"
-                  className="popularSpecialty-body-img"
-                ></img>
-                <p className="popularSpecialty-body-text">
-                  Phòng khám quốc tế EXSON
-                </p>
-              </div>
+              {this.state.arrClinic &&
+                this.state.arrClinic.length > 0 &&
+                this.state.arrClinic.map((item, index) => {
+                  let imgBase64 = new Buffer(item.image, "base64").toString(
+                    "binary"
+                  );
+                  return (
+                    <div
+                      className="popularSpecial-item"
+                      key={index}
+                      onClick={() =>
+                        this.handleOnclickRedirectToDetail(item.clinicId)
+                      }
+                    >
+                      <img
+                        src={imgBase64}
+                        className="popularSpecialty-body-img"
+                      ></img>
+                      <p className="popularSpecialty-body-text">
+                        {this.props.language === LANGUAGES.VI
+                          ? item.clinicName.valueVi
+                          : item.clinicName.valueEn}
+                      </p>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -145,8 +126,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
+    // changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MedicalFacility)
+);

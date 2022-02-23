@@ -42,9 +42,7 @@ let getAllDoctor = async () => {
   try {
     let result = await db.User.findAll({
       where: { roleId: "R2" },
-      attributes: {
-        exclude: ["password", "image"],
-      },
+      attributes: ["id", "firstName", "lastName"],
     });
     if (result) {
       return {
@@ -93,22 +91,18 @@ let editOrCreateDetailDoctor = async (data) => {
     if (!checkExistsDoctorInfor) {
       resultDoctorInfor = await db.DoctorInfor.create({
         doctorId: data.doctorId,
-        priceId: data.priceId,
-        provinceId: data.provinceId,
-        paymentId: data.paymentId,
+        clinicId: data.clinicId,
         specialtyId: data.specialtyId,
-        nameClinic: data.nameClinic,
-        addressClinic: data.addressClinic,
+        priceId: data.priceId,
+        paymentId: data.paymentId,
         note: data.note,
       });
       console.log("======check result DoctorInfor:", resultDoctorInfor);
     } else {
-      checkExistsDoctorInfor.priceId = data.priceId;
-      checkExistsDoctorInfor.provinceId = data.provinceId;
-      checkExistsDoctorInfor.paymentId = data.paymentId;
+      checkExistsDoctorInfor.clinicId = data.clinicId;
       checkExistsDoctorInfor.specialtyId = data.specialtyId;
-      checkExistsDoctorInfor.nameClinic = data.nameClinic;
-      checkExistsDoctorInfor.addressClinic = data.addressClinic;
+      checkExistsDoctorInfor.priceId = data.priceId;
+      checkExistsDoctorInfor.paymentId = data.paymentId;
       checkExistsDoctorInfor.note = data.note;
       await checkExistsDoctorInfor.save();
     }
@@ -126,7 +120,7 @@ let getDetailDoctor = async (doctorId) => {
     let result = await db.User.findOne({
       where: { id: doctorId },
       attributes: {
-        exclude: ["password"],
+        exclude: ["password", "address", "gender", "createdAt", "updatedAt"],
       },
       include: [
         {
@@ -141,23 +135,32 @@ let getDetailDoctor = async (doctorId) => {
         {
           model: db.DoctorInfor,
           attributes: [
-            "provinceId",
             "specialtyId",
+            "clinicId",
             "priceId",
             "paymentId",
-            "nameClinic",
-            "addressClinic",
             "note",
           ],
           include: [
             {
-              model: db.Allcode,
-              as: "priceData",
-              attributes: ["valueEn", "valueVi", "keyMap"],
+              model: db.Clinic,
+              attributes: ["provinceId", "clinicAddress"],
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "clinicName",
+                  attributes: ["valueVi", "valueEn"],
+                },
+                {
+                  model: db.Allcode,
+                  as: "provinceData",
+                  attributes: ["valueVi", "valueEn"],
+                },
+              ],
             },
             {
               model: db.Allcode,
-              as: "provinceData",
+              as: "priceData",
               attributes: ["valueEn", "valueVi", "keyMap"],
             },
             {
@@ -283,12 +286,18 @@ let getDoctorExtraInforById = async (id) => {
       where: {
         doctorId: id,
       },
-      attributes: ["addressClinic", "nameClinic", "note"],
+      attributes: ["note"],
       include: [
         {
-          model: db.Allcode,
-          as: "provinceData",
-          attributes: ["valueEn", "valueVi"],
+          model: db.Clinic,
+          attributes: ["clinicAddress"],
+          include: [
+            {
+              model: db.Allcode,
+              as: "clinicName",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
         },
         {
           model: db.Allcode,

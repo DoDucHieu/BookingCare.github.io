@@ -68,8 +68,12 @@ class Specialty extends Component {
     return (
       <div className="specialty">
         <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Chuyên khoa phổ biến</b>
-          <button className="popularSpecialty-header-button">XEM THÊM</button>
+          <b className="popularSpecialty-header-text">
+            <FormattedMessage id={"section.outstanding-specialty"} />
+          </b>
+          <button className="popularSpecialty-header-button">
+            <FormattedMessage id={"section.search"} />
+          </button>
         </div>
         <div className="popularSpecialty-body">
           <div className="container">

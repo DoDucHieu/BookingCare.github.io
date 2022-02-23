@@ -486,6 +486,7 @@ export let fetchSpecialtyStart = () => {
     }
   };
 };
+
 export let fetchSpecialtySuccess = (data) => {
   return {
     type: actionTypes.FETCH_SPECIALTY_SUCCESS,
@@ -495,6 +496,34 @@ export let fetchSpecialtySuccess = (data) => {
 export let fetchSpecialtyFailed = () => {
   return {
     type: actionTypes.FETCH_SPECIALTY_FAILED,
+  };
+};
+
+export let fetchClinicStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let result = await getAllCode("CLINIC");
+      if (result && result.errCode === 0) {
+        dispatch(fetchClinicSuccess(result.data));
+      } else {
+        dispatch(fetchClinicFailed());
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(fetchClinicFailed());
+    }
+  };
+};
+
+export let fetchClinicSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_CLINIC_SUCCESS,
+    data: data,
+  };
+};
+export let fetchClinicFailed = () => {
+  return {
+    type: actionTypes.FETCH_CLINIC_FAILED,
   };
 };
 

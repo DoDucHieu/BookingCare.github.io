@@ -16,23 +16,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      clinicId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       priceId: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      provinceId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       paymentId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      addressClinic: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      nameClinic: {
         type: Sequelize.STRING,
         allowNull: true,
       },

@@ -13,14 +13,13 @@ class DoctorExtraInfor extends Component {
     super(props);
     this.state = {
       isShowDetailPrice: false,
-      doctorId: this.props.doctorId,
       doctorExtraInfor: {},
     };
   }
 
   componentDidMount = async () => {
     try {
-      let result = await getDoctorExtraInfor(this.state.doctorId);
+      let result = await getDoctorExtraInfor(this.props.doctorId);
       if (result && result.errCode === 0) {
         this.setState({
           doctorExtraInfor: result.data,
@@ -35,32 +34,40 @@ class DoctorExtraInfor extends Component {
       console.log(e);
     }
   };
-  componentDidUpdate(prevProps, prevState, snapShot) {}
+  componentDidUpdate = async (prevProps, prevState, snapShot) => {};
   handleShowHidePrice = () => {
     this.setState({
       isShowDetailPrice: !this.state.isShowDetailPrice,
     });
   };
   render() {
-    console.log("check state doctorExtraInfor: ", this.state);
+    // console.log("check state doctorExtraInfor: ", this.state);
     let { doctorExtraInfor } = this.state;
+    let clinicAddress = "";
+    let clinicName = "";
+    if (
+      doctorExtraInfor &&
+      doctorExtraInfor.Clinic &&
+      doctorExtraInfor.Clinic.clinicName
+    ) {
+      clinicAddress = doctorExtraInfor.Clinic.clinicAddress;
+      clinicName =
+        this.props.language === LANGUAGES.VI
+          ? doctorExtraInfor.Clinic.clinicName.valueVi
+          : doctorExtraInfor.Clinic.clinicName.valueEn;
+    }
     return (
       <>
         <div className="doctorExtraInfor">
           <p className="doctorExtraInfor_title">
             <FormattedMessage id={"doctor-extra-infor.examination-address"} />
           </p>
-          <p className="clinic_name">
-            {doctorExtraInfor && doctorExtraInfor.nameClinic}
-          </p>
-          <p className="clinic_address">
-            {doctorExtraInfor && doctorExtraInfor.addressClinic}
-          </p>
+          <p className="clinic_name">{clinicName}</p>
+          <p className="clinic_address">{clinicAddress}</p>
           <div className="price">
             {this.state.isShowDetailPrice === false ? (
               <div className="price_brief">
                 <p className="price_title">
-                  {" "}
                   <FormattedMessage
                     id={"doctor-extra-infor.examination-price"}
                   />

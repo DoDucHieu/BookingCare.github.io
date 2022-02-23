@@ -26,10 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         as: "priceData",
       });
       Allcode.hasMany(models.DoctorInfor, {
-        foreignKey: "provinceId",
-        as: "provinceData",
-      });
-      Allcode.hasMany(models.DoctorInfor, {
         foreignKey: "paymentId",
         as: "paymentData",
       });
@@ -40,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
       Allcode.hasOne(models.Specialty, {
         foreignKey: "specialtyId",
         as: "specialtyName",
+      });
+      Allcode.hasOne(models.Clinic, {
+        foreignKey: "clinicId",
+        as: "clinicName",
+      });
+      Allcode.hasMany(models.Clinic, {
+        foreignKey: "provinceId",
+        as: "provinceData",
       });
     }
   }

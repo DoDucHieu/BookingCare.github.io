@@ -49,9 +49,11 @@ class HandBook extends Component {
     return (
       <div className="specialty handBook">
         <div className="popularSpecialty-header">
-          <b className="popularSpecialty-header-text">Cẩm nang</b>
+          <b className="popularSpecialty-header-text">
+            <FormattedMessage id={"section.hand-book"} />
+          </b>
           <button className="popularSpecialty-header-button handBook-header-button">
-            TẤT CẢ BÀI VIẾT
+            <FormattedMessage id={"section.all-hand-book"} />
           </button>
         </div>
         <div className="popularSpecialty-body">

@@ -1,24 +1,19 @@
 .manageDoctor {
   padding: 0px 12px;
   .manageDoctor_title {
-    margin: 8px;
+    margin-top: 16px;
+    margin-bottom: 32px;
     text-align: center;
     text-transform: upperCase;
     font-size: 20px;
     font-weight: 600;
     color: rgb(240, 120, 8);
   }
-  .selectDoctor {
-    margin: 8px 0px;
-    .reactSelect {
-      width: 300px;
-    }
-  }
   .description {
     display: flex;
     flex-direction: column;
     textarea {
-      width: 480px;
+      width: 75%;
     }
     margin-bottom: 8px;
   }

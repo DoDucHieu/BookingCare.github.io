@@ -92,6 +92,26 @@ let getDoctorBySpecialty = (specialtyId) => {
 let getDoctorShowOnSpecialty = (doctorId) => {
   return axios.get(`/api/get-doctor-show-on-specialty?doctorId=${doctorId}`);
 };
+
+let createClinic = (data) => {
+  return axios.post("/api/create-clinic", data);
+};
+
+let getDetailClinic = (clinicId) => {
+  return axios.get(`/api/get-detail-clinic?clinicId=${clinicId}`);
+};
+
+let editDetailClinic = (data) => {
+  return axios.post("/api/edit-detail-clinic", data);
+};
+
+let getAllClinic = () => {
+  return axios.get("/api/get-all-clinic");
+};
+
+let getDoctorByClinic = (clinicId) => {
+  return axios.get(`/api/get-doctor-by-clinic?clinicId=${clinicId}`);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -115,4 +135,9 @@ export {
   editSpecialty,
   getDoctorBySpecialty,
   getDoctorShowOnSpecialty,
+  createClinic,
+  getDetailClinic,
+  editDetailClinic,
+  getAllClinic,
+  getDoctorByClinic,
 };

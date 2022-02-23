@@ -122,12 +122,11 @@ let getDoctorBySpecialty = async (specialtyId) => {
   try {
     let res = await db.DoctorInfor.findAll({
       where: { specialtyId: specialtyId },
-      attributes: ["doctorId", "provinceId"],
+      attributes: ["doctorId"],
       include: [
         {
-          model: db.Allcode,
-          as: "provinceData",
-          attributes: ["valueEn", "valueVi"],
+          model: db.Clinic,
+          attributes: ["provinceId"],
         },
       ],
       raw: true,
@@ -165,6 +164,34 @@ let getDoctorShowOnSpecialty = async (doctorId) => {
         {
           model: db.Markdown,
           attributes: ["description"],
+        },
+        {
+          model: db.DoctorInfor,
+          attributes: {
+            exclude: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "count",
+              "paymentId",
+              "priceId",
+              "specialtyId",
+              "note",
+            ],
+          },
+          include: [
+            {
+              model: db.Clinic,
+              attributes: ["provinceId"],
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "provinceData",
+                  attributes: ["valueVi", "valueEn"],
+                },
+              ],
+            },
+          ],
         },
       ],
       raw: true,

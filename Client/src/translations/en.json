@@ -25,6 +25,14 @@
         "dental-examination-bot":"examination"
 
     },
+    "section":{
+        "outstanding-medical-facility":"Outstanding medical facility",
+        "outstanding-doctor":"Outstanding doctor",
+        "outstanding-specialty":"Outstanding specialty",
+        "hand-book":"Hand book",
+        "all-hand-book":"ALL HAND BOOK",
+        "search":"SEARCH"
+    },
     "menu": {
         "admin": {
             "manage": "Manage",
@@ -33,7 +41,7 @@
                 "manage-user": "Manage user",
                 "manage-redux":"Manage with Redux",
             "clinic":"Clinic",
-                "manage-clinic":"Add new clinic",
+                "manage-clinic":"Manage clinic",
             "specialty":"Specialy",
                 "manage-specialty":"Manage specialty",
             "handbook":"Handbook",
@@ -119,7 +127,20 @@
         "upload-img":"Upload image",
         "create":"Create",
         "edit":"Save change"
+    },
+    "detail-specialty":{
+        "select-province":"Select province:"
+    },
+    "manage-clinic":{
+        "title":"Manage clinic",
+        "select-clinic":"Select clinic",
+        "select-img":"Select image",
+        "upload-img":"Upload image",
+        "create":"Create",
+        "edit":"Save change"
+    },
+    "detail-clinic":{
+        "select-specialty":"Select specialty:"
     }
-
 
 }
