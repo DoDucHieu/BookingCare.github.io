@@ -154,7 +154,6 @@ class SpecialtyManage extends Component {
           </div>
           <div className="select_specialty form-group">
             <label>
-              {" "}
               <FormattedMessage id={"manage-specialty.select-specialty"} />
             </label>
             <Select
@@ -167,7 +166,6 @@ class SpecialtyManage extends Component {
           <div className="row mt-3">
             <div className="form-group col-2">
               <label>
-                {" "}
                 <FormattedMessage id={"manage-specialty.select-img"} />
               </label>
               <div className="mt-2 UploadImg">

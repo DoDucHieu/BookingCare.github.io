@@ -80,6 +80,19 @@
                     cursor: pointer;
                 }
             }
+            .login_back_to-home{
+                margin-top: 48px;
+                color: green;
+                span{
+                    i{
+                        margin-right: 4px;
+                    }
+                }
+                span:hover{
+                    cursor: pointer;
+                    color: orange;
+                }
+            }
         }
     }
 }

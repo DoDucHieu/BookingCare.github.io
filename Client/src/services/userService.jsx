@@ -112,6 +112,26 @@ let getAllClinic = () => {
 let getDoctorByClinic = (clinicId) => {
   return axios.get(`/api/get-doctor-by-clinic?clinicId=${clinicId}`);
 };
+
+let getAllPatientByDoctor = (doctorId) => {
+  return axios.get(`/api/get-all-patient-by-doctor?doctorId=${doctorId}`);
+};
+
+let doctorConfirmExamination = (data) => {
+  return axios.post("/api/doctor-confirm-examination", data);
+};
+
+let createHandbook = (data) => {
+  return axios.post("/api/create-handbook", data);
+};
+
+let getHandbook = (handbookId) => {
+  return axios.get(`/get-handbook?handbookId=${handbookId}`);
+};
+
+let editHandbook = (data) => {
+  return axios.post("/api/edit-handbook", data);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -140,4 +160,9 @@ export {
   editDetailClinic,
   getAllClinic,
   getDoctorByClinic,
+  getAllPatientByDoctor,
+  doctorConfirmExamination,
+  createHandbook,
+  getHandbook,
+  editHandbook,
 };

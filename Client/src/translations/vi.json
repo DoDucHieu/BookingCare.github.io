@@ -33,6 +33,14 @@
         "all-hand-book":"TẤT CẢ BÀI VIẾT",
         "search":"TÌM KIẾM"
     },
+    "login":{
+        "login":"Đăng nhập",
+        "user-name":"Tài khoản",
+        "password":"Mật khẩu",
+        "forgot-your-password":"Quên mật khẩu?",
+        "login-with":"Đăng nhập với",
+        "back-to-home":"Trở về trang chủ"
+    },
     "menu": {
         "admin": {
             "manage": "Quản lý",
@@ -51,7 +59,8 @@
             "manage-handbook":"Quản lí cẩm nang"
         },
         "doctor":{
-            "manage-schedule":"Quản lý lịch khám"
+            "manage-schedule":"Quản lý lịch khám",
+            "manage-patient":"Quản lý bệnh nhân"
         },
         "welcome":"Xin chào, "
     }
@@ -144,6 +153,16 @@
     },
     "detail-clinic":{
         "select-specialty":"Chọn chuyên khoa:"
+    },
+    "manage-patient":{
+        "title":"Quản lí bệnh nhân",
+        "select-date":"Chọn ngày"
+    },
+    "manage-handbook":{
+        "title":"Quản lí cẩm nang",
+        "name":"Tên cẩm nang",
+        "create":"Tạo",
+        "edit":"Lưu thay đổi"
     }
 
 }

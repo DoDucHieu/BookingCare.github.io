@@ -5,10 +5,11 @@ import "./HandBook.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../../utils";
 import { changeLanguageApp } from "../../../store/actions";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getHandbook } from "../../../services/userService";
+import { withRouter } from "react-router";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -32,8 +33,32 @@ function SamplePrevArrow(props) {
   );
 }
 class HandBook extends Component {
-  changeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrHandbook: [],
+    };
+  }
+  componentDidMount = () => {
+    this.handleGetHandbook("ALL");
+  };
+  handleGetHandbook = async (handbookId) => {
+    try {
+      let result = await getHandbook(handbookId);
+      if (result && result.errCode === 0) {
+        this.setState({
+          arrHandbook: result.data,
+        });
+        console.log("Get all handbook success!");
+      } else {
+        console.log("Get all handbook failed!");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  handleRedirectToDetailHandbook = (id) => {
+    this.props.history.push(`/detail-handbook-${id}`);
   };
   render() {
     let settings = {
@@ -59,62 +84,32 @@ class HandBook extends Component {
         <div className="popularSpecialty-body">
           <div className="container">
             <Slider {...settings}>
-              <div className="handleBook-item-border">
-                <div className="handBook-item">
-                  <img
-                    src="https://cdn.bookingcare.vn/fr/w300/2021/04/08/162555-benh-vien-thu-cuc-kham-gif.jpg"
-                    className="handBook-body-img"
-                  ></img>
-                  <p className="handBook-body-text">
-                    <span>
-                      Bệnh viện Thu Cúc khám những gì? Bác sĩ giỏi tại Bệnh viện
-                      Thu Cúc
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="handleBook-item-border">
-                <div className="handBook-item">
-                  <img
-                    src="https://cdn.bookingcare.vn/fr/w300/2021/04/08/162555-benh-vien-thu-cuc-kham-gif.jpg"
-                    className="handBook-body-img"
-                  ></img>
-                  <p className="handBook-body-text">
-                    <span>
-                      Bệnh viện Thu Cúc khám những gì? Bác sĩ giỏi tại Bệnh viện
-                      Thu Cúc
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="handleBook-item-border">
-                <div className="handBook-item">
-                  <img
-                    src="https://cdn.bookingcare.vn/fr/w300/2021/04/08/162555-benh-vien-thu-cuc-kham-gif.jpg"
-                    className="handBook-body-img"
-                  ></img>
-                  <p className="handBook-body-text">
-                    <span>
-                      Bệnh viện Thu Cúc khám những gì? Bác sĩ giỏi tại Bệnh viện
-                      Thu Cúc
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="handleBook-item-border">
-                <div className="handBook-item">
-                  <img
-                    src="https://cdn.bookingcare.vn/fr/w300/2021/04/08/162555-benh-vien-thu-cuc-kham-gif.jpg"
-                    className="handBook-body-img"
-                  ></img>
-                  <p className="handBook-body-text">
-                    <span>
-                      Bệnh viện Thu Cúc khám những gì? Bác sĩ giỏi tại Bệnh viện
-                      Thu Cúc
-                    </span>
-                  </p>
-                </div>
-              </div>
+              {this.state.arrHandbook &&
+                this.state.arrHandbook.length > 0 &&
+                this.state.arrHandbook.map((item, index) => {
+                  let imgBase64 = new Buffer(
+                    item.handbookImg,
+                    "base64"
+                  ).toString("binary");
+                  return (
+                    <div
+                      className="handleBook-item-border"
+                      onClick={() =>
+                        this.handleRedirectToDetailHandbook(item.id)
+                      }
+                    >
+                      <div className="handBook-item">
+                        <img
+                          src={imgBase64}
+                          className="handBook-body-img"
+                        ></img>
+                        <p className="handBook-body-text">
+                          <span>{item.handbookName}</span>
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -136,4 +131,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HandBook);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HandBook)
+);

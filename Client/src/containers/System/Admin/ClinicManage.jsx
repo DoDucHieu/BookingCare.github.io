@@ -11,6 +11,7 @@ import Select from "react-select";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import _ from "lodash";
+import { toast } from "react-toastify";
 import {
   createClinic,
   getDetailClinic,
@@ -181,8 +182,10 @@ class ClinicManage extends Component {
     if (this.state.editOrCreate === "EDIT") {
       let result = await editDetailClinic(data);
       if (result && result.errCode === 0) {
+        toast.success("EDIT DETAIL CLINIC SUCCESS!");
         console.log("Edit detail clinic success!");
       } else {
+        toast.error("EDIT DETAIL CLINIC FAILED!");
         console.log("Edit detail clinic failed!");
       }
     }

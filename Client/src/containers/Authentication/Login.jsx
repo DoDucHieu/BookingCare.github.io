@@ -5,6 +5,7 @@ import * as actions from "../../store/actions";
 import "./Login.scss";
 import { FormattedMessage } from "react-intl";
 import { handleLogin } from "../../services/userService";
+import { ROLE } from "../../utils";
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class Login extends Component {
     await this.setState({
       password: event.target.value,
     });
-    // console.log(this.state.password);
   };
   handleLogin = async () => {
     this.setState({
@@ -38,10 +38,15 @@ class Login extends Component {
         this.setState({ errMessage: data.errMessage });
       }
       if (data && data.errCode === 0) {
-        this.props.userLoginSuccess(data.user);
+        await this.props.userLoginSuccess(data.user);
+        if (data.user.roleId === ROLE.DOCTOR) {
+          this.props.history.push("/doctor");
+        }
+        if (data.user.roleId === ROLE.ADMIN) {
+          this.props.history.push("/admin");
+        }
       }
     } catch (err) {
-      // console.log(err.response.data.message);
       if (err.response) {
         if (err.response.data) {
           this.setState({
@@ -55,21 +60,27 @@ class Login extends Component {
     await this.setState({
       isShowPassword: !this.state.isShowPassword,
     });
-    // console.log(this.state.isShowPassword);
   };
   handleOnKeydownEnterLogin = (event) => {
     if (event.key === "Enter") {
       this.handleLogin();
     }
   };
+  handleRedirectToHomePage = () => {
+    this.props.history.push("/home");
+  };
   render() {
     return (
       <div className="login-background">
         <div className="login-container">
           <div className="login-content row">
-            <div className="col-12 login-text">Login</div>
+            <div className="col-12 login-text">
+              <FormattedMessage id={"login.login"} />
+            </div>
             <div className="col-12 form-group login-input">
-              <label htmlFor="">User Name</label>
+              <label htmlFor="">
+                <FormattedMessage id={"login.user-name"} />
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -78,7 +89,9 @@ class Login extends Component {
               />
             </div>
             <div className="col-12 form-group login-input">
-              <label htmlFor="">Password</label>
+              <label htmlFor="">
+                <FormattedMessage id={"login.password"} />
+              </label>
               <div className="custom-password">
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
@@ -104,18 +117,28 @@ class Login extends Component {
             </div>
             <div className="col-12 ">
               <button className="login-btn" onClick={() => this.handleLogin()}>
-                Login
+                <FormattedMessage id={"login.login"} />
               </button>
             </div>
             <div className="col-12">
-              <span className="forgot-password">Forgot your password?</span>
+              <span className="forgot-password">
+                <FormattedMessage id={"login.forgot-your-password"} />
+              </span>
             </div>
             <div className="col-12  text-center login-with">
-              <span>Or login with:</span>
+              <span>
+                <FormattedMessage id={"login.login-with"} />
+              </span>
             </div>
             <div className="col-12 login-social">
               <i className="fab fa-google google"></i>
               <i className="fab fa-facebook-f facebook"></i>
+            </div>
+            <div className="login_back_to-home col-12 text-center">
+              <span onClick={() => this.handleRedirectToHomePage()}>
+                <i className="fas fa-angle-left"></i>
+                <FormattedMessage id={"login.back-to-home"} />
+              </span>
             </div>
           </div>
         </div>
@@ -133,9 +156,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    // adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-    // adminLoginFail: () => dispatch(actions.adminLoginFail()),
-    // userLoginFail: () => dispatch(actions.userLoginFail()),
     userLoginSuccess: (userInfo) =>
       dispatch(actions.userLoginSuccess(userInfo)),
   };

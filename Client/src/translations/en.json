@@ -33,6 +33,14 @@
         "all-hand-book":"ALL HAND BOOK",
         "search":"SEARCH"
     },
+    "login":{
+        "login":"Login",
+        "user-name":"User name",
+        "password":"Password",
+        "forgot-your-password":"Forgot your password?",
+        "login-with":"Or login with",
+        "back-to-home":"Back to home page"
+    },
     "menu": {
         "admin": {
             "manage": "Manage",
@@ -49,7 +57,8 @@
             
         },
         "doctor":{
-            "manage-schedule":"Manage schedule"
+            "manage-schedule":"Manage schedule",
+            "manage-patient":"Manage patient"
         },
         "welcome":"Welcome, "
     },
@@ -141,6 +150,16 @@
     },
     "detail-clinic":{
         "select-specialty":"Select specialty:"
+    },
+    "manage-patient":{
+        "title":"Manage patient",
+        "select-date":"Select date"
+    },
+    "manage-handbook":{
+        "title":"Manage handbook",
+        "name":"Handbook's name",
+        "create":"Create",
+        "edit":"Save change"
     }
 
 }

@@ -52,36 +52,25 @@ class DoctorSchedule extends Component {
         arrDate: this.formattedDate(),
       });
     }
-    // if (prevProps.doctorId !== this.props.doctorId) {
-    //   try {
-    //     let result = await getDoctorSchedule(
-    //       this.props.doctorId,
-    //       this.state.dateSelected
-    //     );
-    //     if (result && result.errCode === 0) {
-    //       this.setState({
-    //         doctorSchedule: result.data,
-    //         dateSelected: moment(new Date()).format(dateFormat.DATE_FORMAT),
-    //       });
-    //     } else {
-    //       console.log("ERR from component DoctorSchedule:", result.errMessage);
-    //       this.setState({
-    //         doctorSchedule: [],
-    //       });
-    //     }
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // }
   };
   formattedDate = () => {
     let arrDate = [];
     for (let i = 0; i < 7; i++) {
       let obj = {};
-      obj.label =
-        this.props.language === LANGUAGES.VI
-          ? moment(new Date()).add(i, "day").format("ddd - DD/MM")
-          : moment(new Date()).add(i, "day").locale("en").format("ddd - MM/DD");
+      if (i === 0) {
+        obj.label =
+          this.props.language === LANGUAGES.VI
+            ? "Hôm nay- " + moment(new Date()).format("DD/MM")
+            : "Today- " + moment(new Date()).format("MM/DD");
+      } else {
+        obj.label =
+          this.props.language === LANGUAGES.VI
+            ? moment(new Date()).add(i, "day").format("dddd - DD/MM")
+            : moment(new Date())
+                .add(i, "day")
+                .locale("en")
+                .format("dddd - MM/DD");
+      }
       obj.value = moment(new Date())
         .add(i, "day")
         .format(dateFormat.DATE_FORMAT);
@@ -133,12 +122,6 @@ class DoctorSchedule extends Component {
               {arrDate &&
                 arrDate.length > 0 &&
                 arrDate.map((item, index) => {
-                  if (index === 0) {
-                    item.label =
-                      this.props.language === LANGUAGES.VI
-                        ? "Hôm nay- " + moment(new Date()).format("DD/MM")
-                        : "Today- " + moment(new Date()).format("MM/DD");
-                  }
                   return (
                     <option key={index} value={item.value}>
                       {item.label}

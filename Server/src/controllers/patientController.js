@@ -20,7 +20,7 @@ let handleVerifyBookingAppointment = async (req, res) => {
   if (!data || !data.token || !data.doctorId) {
     return res.status(500).json({
       errCode: 1,
-      errMessage: "Missing query string parameter!",
+      errMessage: "Missing parameter required!",
     });
   }
   let response = await patientServices.verifyBookingAppointment(
@@ -33,7 +33,47 @@ let handleVerifyBookingAppointment = async (req, res) => {
   });
 };
 
+let handleGetAllPatientByDoctor = async (req, res) => {
+  let doctorId = req.query.doctorId;
+  if (!doctorId) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: "Missing query string parameter!",
+    });
+  }
+  let response = await patientServices.getAllPatientByDoctor(doctorId);
+  return res.status(200).json({
+    errCode: response.errCode,
+    errMessage: response.errMessage,
+    data: response.data,
+  });
+};
+
+let handleDoctorConfirmExamination = async (req, res) => {
+  let data = req.body;
+  if (
+    !data ||
+    !data.doctorId ||
+    !data.patientId ||
+    !data.email ||
+    !data.date ||
+    !data.timeType
+  ) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: "Missing query string parameter!",
+    });
+  }
+  let response = await patientServices.doctorConfirmExamination(data);
+  return res.status(200).json({
+    errCode: response.errCode,
+    errMessage: response.errMessage,
+  });
+};
+
 module.exports = {
   handleFindOrCreateBookingAppointment: handleFindOrCreateBookingAppointment,
   handleVerifyBookingAppointment: handleVerifyBookingAppointment,
+  handleGetAllPatientByDoctor: handleGetAllPatientByDoctor,
+  handleDoctorConfirmExamination: handleDoctorConfirmExamination,
 };

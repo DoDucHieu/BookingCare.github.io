@@ -1,7 +1,8 @@
 require("dotenv").config();
 import nodemailer from "nodemailer";
 
-let simpleMailTransferProtocol = async (data, token) => {
+//USING WHEN PATIENT BOOKING AN APPOINTMENT, SEND MAIL TO ASK PATIENT TO CONFIRM
+let SMTP_AskPatientToConfirm = async (data, token) => {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -16,12 +17,12 @@ let simpleMailTransferProtocol = async (data, token) => {
     from: `"BookingCare" <${process.env.APP_EMAIL}>`, // sender address
     to: data.email, // list of receivers
     subject: "BookingCare", // Subject line
-    // text: "Xin chao anh ban nheeeee!", // plain text body
-    html: formatEmailSend(data, token), // html body
+    // text: "Xin chao anh ban!", // plain text body
+    html: formatEmailSendWhenAskPatientToConfirm(data, token), // html body
   });
 };
 
-let formatEmailSend = (data, token) => {
+let formatEmailSendWhenAskPatientToConfirm = (data, token) => {
   let mailDetail = "";
   let linkRedirect = `${process.env.URL_REACT}/verify-booking-schedule?doctorId=${data.doctorId}&token=${token}`;
   if (data.language === "vi") {
@@ -56,11 +57,59 @@ let formatEmailSend = (data, token) => {
     <p>Address contact:${data.patientAddressContact}</p>
     <p>Reason for examination:${data.reason}</p>
     <p>If the above information is correct, please click on the link below to confirm your appointment!</p>
-    <a href=${data.linkRedirect} target="_blank">Confirm here</a>
+    <a href=${linkRedirect} target="_blank">Confirm here</a>
     <p>Best regard!</p>
     `;
   }
   return mailDetail;
 };
 
-module.exports = { simpleMailTransferProtocol: simpleMailTransferProtocol };
+let SMTP_DoctorSendBillToPatient = async (data) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.APP_EMAIL,
+      pass: process.env.APP_PASSWORDS,
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: `"BookingCare" <${process.env.APP_EMAIL}>`,
+    to: data.email,
+    subject: "BookingCare",
+    html: formatEmailDoctorSendBillToPatient(data),
+    attachments: [
+      {
+        filename: `${data.patientId}_${data.fullName}.png`,
+        content: data.billImg.split("base64,")[1],
+        encoding: "base64",
+      },
+    ],
+  });
+};
+
+let formatEmailDoctorSendBillToPatient = (data) => {
+  let mailDetail = "";
+  if (data.language === "vi") {
+    mailDetail = `
+    <h3>Xin chào ${data.fullName}</h3>
+    <p>Bạn nhận được email này vì bạn đã hoàn tất quá trình khám bệnh tại BookingCare. Dưới đây là thông tin hóa đơn</p>
+    <p>Trân trọng!</p>
+    `;
+  }
+  if (data.language === "en") {
+    mailDetail = `
+    <h3>Dear ${data.fullName}!</h3>
+    <p>You are receiving this email because you have completed your medical examination at BookingCare. Below is the invoice information:</p>
+    <p>Best regard!</p>
+    `;
+  }
+  return mailDetail;
+};
+
+module.exports = {
+  SMTP_AskPatientToConfirm: SMTP_AskPatientToConfirm,
+  SMTP_DoctorSendBillToPatient: SMTP_DoctorSendBillToPatient,
+};

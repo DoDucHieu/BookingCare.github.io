@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { Redirect, Route, Switch } from "react-router-dom";
+import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
 import Navigator from "../../../components/Navigator";
 import { adminMenu, doctorMenu } from "./menuApp";
@@ -17,7 +18,6 @@ class Header extends Component {
     };
   }
   componentDidMount() {
-    console.log("check user infor:", this.props.userInfo);
     let { userInfo } = this.props;
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo) && userInfo.roleId) {
@@ -29,27 +29,25 @@ class Header extends Component {
         menu = doctorMenu;
       }
     }
-    this.setState(
-      {
-        menuApp: menu,
-      }
-      // () => {
-      //   console.log("check state system header: ", userInfo.roleId);
-      // }
-    );
+    this.setState({
+      menuApp: menu,
+    });
   }
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+  handleLogOut = () => {
+    this.props.processLogout();
+    this.props.history.push("/login");
+  };
   render() {
-    const { processLogout, language, userInfo } = this.props;
+    const { language, userInfo } = this.props;
     // console.log("check login persist: ", userInfo);
     return (
       <div className="header-container">
         {/* thanh navigator */}
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
-          {/* <Navigator menus={doctorMenu} /> */}
         </div>
         {/* change language */}
         <div className="changeLanguage">
@@ -77,10 +75,10 @@ class Header extends Component {
           >
             EN
           </span>
-          {/* nút logout */}
+          {/* logout */}
           <div
             className="btn btn-logout"
-            onClick={processLogout}
+            onClick={() => this.handleLogOut()}
             title="Log out"
           >
             <i className="fas fa-sign-out-alt"></i>
@@ -107,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

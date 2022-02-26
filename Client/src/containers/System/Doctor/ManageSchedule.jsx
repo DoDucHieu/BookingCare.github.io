@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./ManageSchedule.scss";
-import { CommonUtils, manageActions, LANGUAGES } from "../../../utils";
+import { CommonUtils, manageActions, LANGUAGES, ROLE } from "../../../utils";
 
 import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
@@ -15,6 +15,7 @@ class ManageSchedule extends Component {
     super(props);
     this.state = {
       selectedOption: "",
+      defaultValue: "",
       arrDoctor: [],
       timeArr: [],
       doctorId: "",
@@ -67,6 +68,18 @@ class ManageSchedule extends Component {
         obj.label =
           this.props.language === LANGUAGES.VI ? fullNameVi : fullNameEn;
         obj.value = item.id;
+        if (
+          this.props.userInfo.roleId === ROLE.DOCTOR &&
+          this.props.userInfo.id !== item.id
+        ) {
+          obj.disabled = true;
+        }
+        if (item.id === this.props.userInfo.id) {
+          this.setState({
+            defaultValue: obj,
+            doctorId: item.id,
+          });
+        }
         listFullNameDoctor.push(obj);
       });
     }
@@ -123,6 +136,7 @@ class ManageSchedule extends Component {
   render() {
     const { isLoggedIn } = this.props;
     let { timeArr } = this.state;
+    console.log(this.state);
     return (
       <>
         <div className="manage_schedule">
@@ -137,9 +151,14 @@ class ManageSchedule extends Component {
                 </span>
                 <Select
                   className="reactSelect"
-                  value={this.state.selectedOption}
+                  value={
+                    !this.state.defaultValue
+                      ? this.state.selectedOption
+                      : this.state.defaultValue
+                  }
                   onChange={this.handleChangeSelectDoctor}
                   options={this.state.arrDoctor}
+                  isOptionDisabled={(option) => option.disabled}
                 />
               </div>
               <div className="col-4 form-group">
@@ -185,6 +204,7 @@ class ManageSchedule extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    userInfo: state.user.userInfo,
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
 

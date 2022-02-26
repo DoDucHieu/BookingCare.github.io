@@ -24,6 +24,7 @@ class BookingScheduleModal extends Component {
       emailContact: "",
       phoneNumber: "",
       dateOfBirth: "",
+      gender: "",
       reason: "",
     };
   }
@@ -56,6 +57,7 @@ class BookingScheduleModal extends Component {
     console.log(selectedOption);
     this.setState({
       selectedGender: selectedOption,
+      gender: selectedOption.value,
     });
   };
 
@@ -74,14 +76,14 @@ class BookingScheduleModal extends Component {
     data.date = this.state.timeData.date;
     data.timeString =
       this.props.language === LANGUAGES.VI
-        ? `${this.state.timeData.timeData.valueVi} ${moment(
+        ? `${this.state.timeData.timeData.valueVi}, ${moment(
             new Date(this.state.timeData.date)
-          ).format("ddd-DD/MM/YYYY")}`
-        : `${this.state.timeData.timeData.valueEn} - ${moment(
+          ).format("dddd-DD/MM/YYYY")}`
+        : `${this.state.timeData.timeData.valueEn}, ${moment(
             new Date(this.state.timeData.date)
           )
             .locale("en")
-            .format("ddd-MM/DD/YYYY")}`;
+            .format("dddd-MM/DD/YYYY")}`;
     data.timeType = this.state.timeData.timeType;
     data.doctorFullName =
       this.props.language === LANGUAGES.VI
@@ -94,6 +96,7 @@ class BookingScheduleModal extends Component {
       this.props.language === LANGUAGES.VI
         ? moment(new Date(this.state.dateOfBirth)).format("DD/MM/YYYY")
         : moment(new Date(this.state.dateOfBirth)).format("MM/DD/YYYY");
+    data.gender = this.state.gender;
     data.reason = this.state.reason;
     data.language = this.props.language;
     console.log("check data from booking schedule modal to server: ", data);

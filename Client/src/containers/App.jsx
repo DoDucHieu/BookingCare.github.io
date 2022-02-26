@@ -12,9 +12,9 @@ import {
 import DetailDoctor from "./HomePage/DetailDoctor/DetailDoctor";
 import DetailSpecialty from "./HomePage/DetailSpecialty/DetailSpecialty";
 import DetailMedicalFacility from "./HomePage/DetailMedicalFacility/DetailMedicalFacility";
+import DetailHandbook from "./HomePage/DetailHandbook/DetailHandbook";
 import { path } from "../utils";
 import Home from "../routes/System/Home";
-// import Login from '../routes/Login';
 import Login from "./Authentication/Login";
 import Admin from "../routes/System/Admin";
 import Doctor from "../routes/System/Doctor";
@@ -51,19 +51,22 @@ class App extends Component {
                   <Route path={path.HOME} exact>
                     <Home />
                   </Route>
+                  <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route
                     path={path.LOGIN}
-                    component={userIsNotAuthenticated(Login)}
+                    // component={userIsNotAuthenticated(Login)}
+                    component={Login}
                   />
                   <Route
                     path={path.ADMIN}
-                    component={userIsAuthenticated(Admin)}
+                    // component={userIsAuthenticated(Admin)}
+                    component={Admin}
                   />
                   <Route
                     path={path.DOCTOR}
-                    component={userIsAuthenticated(Doctor)}
+                    // component={userIsAuthenticated(Doctor)}
+                    component={Doctor}
                   />
-                  <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                   <Route
                     path={path.VERIFY_BOOKING_SCHEDULE}
@@ -77,22 +80,13 @@ class App extends Component {
                     path={path.DETAIL_MEDICAL_FACILITY}
                     component={DetailMedicalFacility}
                   />
+                  <Route
+                    path={path.DETAIL_HANDBOOK}
+                    component={DetailHandbook}
+                  />
                 </Switch>
               </CustomScrollbars>
             </div>
-
-            {/* <ToastContainer
-              className="toast-container"
-              toastClassName="toast-item"
-              bodyClassName="toast-item-body"
-              autoClose={false}
-              hideProgressBar={true}
-              pauseOnHover={false}
-              pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
-            /> */}
 
             <ToastContainer
               position="top-right"
@@ -115,7 +109,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    started: state.app.started,
     isLoggedIn: state.user.isLoggedIn,
   };
 };

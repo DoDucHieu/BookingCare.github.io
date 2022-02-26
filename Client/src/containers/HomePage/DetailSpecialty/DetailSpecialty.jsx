@@ -179,7 +179,15 @@ class DetailDoctor extends Component {
                   }
                 })}
               {check === 0 && (
-                <div>
+                <div
+                  style={{
+                    width: "100%",
+                    fontSize: "16px",
+                    color: "red",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   {this.props.language === LANGUAGES.VI
                     ? "Không có bác sĩ nào"
                     : "There are no doctors here!"}

@@ -49,26 +49,15 @@ class VerifyBookingSchedule extends Component {
         {this.state.isVerify === true && (
           <div className="verify_booking-schedule">
             <div className="notification">
-              <div className="notification_header">Thông báo</div>
-              <p>Bạn đã đặt lịch thành công!</p>
-              <button
-                className="confirm"
-                onClick={() => {
-                  this.handleRedirect();
-                }}
-              >
-                Trở về trang chủ
-              </button>
-            </div>
-          </div>
-        )}
-        {this.state.isVerify === false && (
-          <div className="verify_booking-schedule">
-            <div className="notification">
-              <div className="notification_header">Thông báo</div>
+              <div className="notification_header">
+                {this.props.language === LANGUAGES.VI
+                  ? "Thông báo"
+                  : "Notification"}
+              </div>
               <p>
-                Bạn đã đặt lịch thành công từ lâu rồi, vui lòng không nhấn lại
-                đường link trong gmail!
+                {this.props.language === LANGUAGES.VI
+                  ? "Bạn đã đặt lịch thành công!"
+                  : "You have successfully booked your appointment!"}
               </p>
               <button
                 className="confirm"
@@ -76,7 +65,35 @@ class VerifyBookingSchedule extends Component {
                   this.handleRedirect();
                 }}
               >
-                Trở về trang chủ
+                {this.props.language === LANGUAGES.VI
+                  ? "Trở về trang chủ"
+                  : "Back to home page"}
+              </button>
+            </div>
+          </div>
+        )}
+        {this.state.isVerify === false && (
+          <div className="verify_booking-schedule">
+            <div className="notification">
+              <div className="notification_header">
+                {this.props.language === LANGUAGES.VI
+                  ? "Thông báo"
+                  : "Notification"}
+              </div>
+              <p>
+                {this.props.language === LANGUAGES.VI
+                  ? "Bạn đã đặt lịch thành công rồi, vui lòng không nhấn lại đường link trong gmail!"
+                  : "You have successfully booked, please do not click the link in gmail again!"}
+              </p>
+              <button
+                className="confirm"
+                onClick={() => {
+                  this.handleRedirect();
+                }}
+              >
+                {this.props.language === LANGUAGES.VI
+                  ? "Trở về trang chủ"
+                  : "Back to home page"}
               </button>
             </div>
           </div>

@@ -13,12 +13,14 @@ class HomeHeader extends Component {
   handleOnclickLogo = () => {
     this.props.history.push("/home");
   };
+  handleRedirectToLogin = () => {
+    this.props.history.push("/login");
+  };
   render() {
     return (
       <div className="homeHeader">
         <div className="homeHeader_top">
           <div className="homeHeader-left">
-            <i className="fas fa-bars"></i>
             <div
               className="logo-img"
               onClick={() => this.handleOnclickLogo()}
@@ -88,6 +90,10 @@ class HomeHeader extends Component {
                 EN
               </span>
             </div>
+            <i
+              className="fas fa-sign-in-alt header_login"
+              onClick={() => this.handleRedirectToLogin()}
+            ></i>
           </div>
         </div>
         {!this.props.isNotDisplayBanner && (
