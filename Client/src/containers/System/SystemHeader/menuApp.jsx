@@ -7,17 +7,14 @@ export const adminMenu = [
         link: "/admin/user-manage",
       },
       {
-        name: "menu.admin.manage-doctor",
-        link: "/admin/manage-doctors",
-      },
-      {
-        name: "menu.admin.manage-admin",
-        link: "/admin/admin-manage",
-      },
-      {
         name: "menu.admin.manage-redux",
         link: "/admin/user-redux",
       },
+      {
+        name: "menu.admin.manage-doctor",
+        link: "/admin/manage-doctors",
+      },
+
       {
         name: "menu.doctor.manage-schedule",
         link: "/doctor/manage-schedule",

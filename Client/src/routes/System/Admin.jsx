@@ -27,15 +27,14 @@ class Admin extends Component {
     });
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
-    console.log("did update:", this.props.userInfo);
     if (prevProps.userInfo !== this.props.userInfo) {
       this.setState({
         userInfo: this.props.userInfo,
         isLoggedIn: this.props.isLoggedIn,
       });
-      if (this.props.userInfo.roleId !== ROLE.ADMIN) {
-        this.props.history.push("/login");
-      }
+      // if (this.props.userInfo.roleId !== ROLE.ADMIN) {
+      //   this.props.history.push("/login");
+      // }
     }
   }
 
