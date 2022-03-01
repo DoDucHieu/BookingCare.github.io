@@ -63,7 +63,9 @@ class ConfirmExaminationModal extends Component {
               <span className="modal_header-title">Confirm examination</span>
               <i
                 className="fas fa-times"
-                onClick={() => this.props.handleShowHideModal("", "child")}
+                onClick={() =>
+                  this.props.handleShowHideModal("", "childCloseModal")
+                }
               ></i>
             </div>
             <div className="modal_body">
@@ -130,13 +132,15 @@ class ConfirmExaminationModal extends Component {
                     )
                   }
                 >
-                  Lưu
+                  {this.props.language === LANGUAGES.VI ? "Lưu" : "Save"}
                 </button>
                 <button
                   className="btn btn-dark confirm_cancel"
-                  onClick={() => this.props.handleShowHideModal("", "child")}
+                  onClick={() =>
+                    this.props.handleShowHideModal("", "childCloseModal")
+                  }
                 >
-                  Hủy
+                  {this.props.language === LANGUAGES.VI ? "Hủy" : "Cancel"}
                 </button>
               </div>
             </div>

@@ -127,10 +127,6 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case actionTypes.FETCH_GENDER_FAILED:
-      return {
-        ...state,
-      };
     case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
       state.allDoctor = action.data;
       return {

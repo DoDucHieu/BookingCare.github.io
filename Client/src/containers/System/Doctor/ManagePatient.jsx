@@ -116,6 +116,11 @@ class ManagePatient extends Component {
         timeType: item ? item.timeType : "",
       });
     }
+    if (type === "childCloseModal") {
+      this.setState({
+        isOpenModal: !this.state.isOpenModal,
+      });
+    }
     if (type === "child") {
       let data = {};
       data.doctorId = this.state.doctorId;
@@ -205,7 +210,9 @@ class ManagePatient extends Component {
                                 )
                               }
                             >
-                              Xác nhận
+                              {this.props.language === LANGUAGES.VI
+                                ? "Xác nhận"
+                                : "Confirm"}
                             </button>
                           </td>
                         </tr>
@@ -234,11 +241,18 @@ class ManagePatient extends Component {
                             )}
                           </td>
                           <td>
-                            <button className="btn-edit">
-                              <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="btn-delete">
-                              <i className="fas fa-trash-alt"></i>
+                            <button
+                              className=" btn btn-primary px-3"
+                              onClick={() =>
+                                this.handleOpenConfirmExaminationModal(
+                                  item,
+                                  "parent"
+                                )
+                              }
+                            >
+                              {this.props.language === LANGUAGES.VI
+                                ? "Xác nhận"
+                                : "Confirm"}
                             </button>
                           </td>
                         </tr>
