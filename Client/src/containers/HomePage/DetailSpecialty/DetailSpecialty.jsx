@@ -51,9 +51,6 @@ class DetailDoctor extends Component {
     ) {
       this.setState({
         arrDoctorGetBySpecialty: this.props.arrDoctorGetBySpecialtyRedux,
-        arrProvince: this.handleFormatProvinceToSelect(
-          this.props.arrDoctorGetBySpecialtyRedux
-        ),
       });
     }
     if (prevProps.provinceRedux !== this.props.provinceRedux) {
